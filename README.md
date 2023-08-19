@@ -1,1 +1,1 @@
-# frontend-mentor-challenges
+# frontend-mentor-challenges -I tackled the challenges given by https://www.frontendmentor.io/challenges to improve my skill in projects.
