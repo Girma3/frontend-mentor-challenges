@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign-up</title>
+
+</head>
+<body>
+    <style>
+     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    
+body{   
+    display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: 100vh;
+   background-color: hsl(234, 29%, 20%);
+   font-family: 'Roboto';
+}
+.container{
+   background-color: rgb(252, 252, 252);
+   max-width: 100%;
+   height: 100%;
+   border-radius: 20px;
+}
+.sub-container{
+    display: flex;
+    
+    flex-wrap: wrap-reverse;
+    width: 100%;
+    margin: 5px;
+    padding: 10px;
+   gap:15px;
+   
+}
+.info{
+   
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   margin: 10px;
+   padding-left: 10px;
+   word-wrap: break-word;
+   max-width: 90%;
+}
+
+.sign-icon{
+   max-width: 40%;
+}
+.info>p{
+   
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    gap:5px;
+    font-family:'Roboto',monospace;
+    font-weight: 400;
+    font-size: 1rem;
+
+}
+.icon{
+   max-width:100%;
+   min-width: 100%;
+}
+
+form >p,button{
+    font-family: inherit;
+    font-weight: 700;
+}
+input{
+    display: block;
+    padding: 10px;
+    margin-bottom: 5px;
+    width:18rem;
+}
+button{
+    background-color:hsl(234, 29%, 20%);
+    padding: 10px;
+    margin-top: 10px;
+    color:white;
+    border-radius: 10px;
+    width:18rem;
+}
+</style>
+
+  <div class="container">
+     <div class="sub-container">
+
+        <div class="info">
+            <div>
+                <h1>Stay Updated!</h1>
+                Join 60,000+ product managers receiving monthly <br> update on:
+            </div>
+
+            <div>
+                <p ><img src="assets/images/icon-list.svg" alt="" >Product discovery and building what matters</p>
+                <p ><img src="assets/images/icon-list.svg" alt="" >Measuring to ensure updates are success</p>
+                <p ><img src="assets/images/icon-list.svg" alt="" >And much more!</p>   
+            </div>
+
+            <div>
+                <form action="" method="get">
+                    <p>Email adress</p>
+                    <label for="user-email">
+                        <input type="email" name="user-email" id="user-email">
+                    </label>
+                    <button type="submit">Subscribe to monthly newsletter</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="sign-icon">
+             <img  class="icon" src="assets/images/illustration-sign-up-desktop.jpg" alt="sign-up">
+        </div> 
+     </div>
+  </div>  
+</body>
+</html>

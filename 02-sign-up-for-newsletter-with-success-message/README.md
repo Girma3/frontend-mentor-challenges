@@ -1,0 +1,1 @@
+Sign up form which give success message if the submitted  email is valid, for this project I will use Html,css and javascript.
