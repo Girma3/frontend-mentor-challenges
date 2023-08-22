@@ -8,17 +8,18 @@
 </head>
 <body>
     <style>
-     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
     
 body{   
-    display: flex;
+   display: flex;
    justify-content: center;
    align-items: center;
    min-height: 100vh;
    background-color: hsl(234, 29%, 20%);
-   font-family: 'Roboto';
+   font-family: 'Roboto',"fantasy",monospace,sans-serif;
 }
 .container{
+    display: block;
    background-color: rgb(252, 252, 252);
    max-width: 100%;
    height: 100%;
@@ -26,16 +27,13 @@ body{
 }
 .sub-container{
     display: flex;
-    
     flex-wrap: wrap-reverse;
     width: 100%;
     margin: 5px;
     padding: 10px;
-   gap:15px;
-   
+    gap:15px;
 }
 .info{
-   
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -74,15 +72,48 @@ input{
     padding: 10px;
     margin-bottom: 5px;
     width:18rem;
+    border-radius: 10px;
 }
 button{
     background-color:hsl(234, 29%, 20%);
     padding: 10px;
+    border: white 1px solid;
     margin-top: 10px;
     color:white;
     border-radius: 10px;
     width:18rem;
 }
+button:hover{
+    background-color: hsl(4, 100%, 67%)
+}
+input:required{
+    border:3px solid hsl(235, 18%, 26%);
+}
+.user-subscribed{
+    /* by default display none to hide it */
+    display:none;
+    flex-direction: column;
+    align-items: start;
+    justify-content:space-between ; 
+    background-color: white;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 30px;
+    width: 400px;
+    height: 400px;
+    font-family: inherit;
+    line-height: 1.5em;
+}
+.user-subscribed> :nth-child(2){
+    font-family: inherit;
+    font-weight: 700;
+    line-height: 2em;
+    }
+#yourEmail{
+    font-family: inherit;
+    font-weight: 700;
+ }
+   
 </style>
 
   <div class="container">
@@ -101,12 +132,12 @@ button{
             </div>
 
             <div>
-                <form action="" method="get">
+                <form  onsubmit="updateDisplay();return false;" method="get">
                     <p>Email adress</p>
                     <label for="user-email">
-                        <input type="email" name="user-email" id="user-email">
+                        <input type="email" name="user-email" id="user-email" placeholder=myform@frontendmentor.com required>
                     </label>
-                    <button type="submit">Subscribe to monthly newsletter</button>
+                    <button  type="submit">Subscribe to monthly newsletter</button>
                 </form>
             </div>
         </div>
@@ -115,6 +146,42 @@ button{
              <img  class="icon" src="assets/images/illustration-sign-up-desktop.jpg" alt="sign-up">
         </div> 
      </div>
-  </div>  
+    </div>  
+     <!-- this part of the page  only appers when user email is valid -->
+     
+       <div class="user-subscribed">
+              <div> 
+                <img src="assets/images/icon-success.svg" alt="ckecked icon">
+               </div>
+               
+               <div>
+                    <h1>Thanks for <br> Subscribing!</h1>
+               </div>
+
+                <p>A confirmation email has been sent to <span id="yourEmail">challenge@frontendmentor.com</span>
+                please open it and click the button inside to confirm your subscription</p>
+                <button  class="validbtn">Dismiss message</button>
+         </div>
+
+<script defer>
+    const userForm = document.getElementById("user-email");
+    const dismissbtn = document.querySelector(".validbtn");
+    const askSubscription = document.querySelector(".container");
+    const subscribedMsg = document.querySelector(".user-subscribed");
+    const userInput = document.getElementById("yourEmail")
+
+//functiion to hide form and to show message if the email is valid
+    function updateDisplay(){
+        askSubscription.style.display="none";
+        subscribedMsg.style.display="flex";
+        userInput.textContent= userForm.value;
+console.log(userForm.value)
+    }
+//button to dismiss message and show the form 
+dismissbtn.addEventListener("click",()=>{
+        askSubscription.style.display="block";
+        subscribedMsg.style.display="none";
+});
+</script>
 </body>
 </html>
