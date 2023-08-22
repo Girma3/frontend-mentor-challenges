@@ -175,10 +175,10 @@ input:required{
         askSubscription.style.display="none";
         subscribedMsg.style.display="flex";
         userInput.textContent= userForm.value;
-console.log(userForm.value)
-    }
+ }
 //button to dismiss message and show the form 
 dismissbtn.addEventListener("click",()=>{
+        userForm.value = "";
         askSubscription.style.display="block";
         subscribedMsg.style.display="none";
 });
