@@ -8,6 +8,90 @@
     <script src="main.js" defer></script>
 </head>
 <body>
-    
+    <div class="main">
+
+        <div class="section-1">
+   
+           <div class="sub-container">
+               <div class="cards">
+                   <div class="front-card">
+                       <img  class="bg-img" src="../03-interactive-card-details-form-main/images/bg-card-front.png" alt="blue card" srcset="">
+                       <span class="card-logo"><img src="../03-interactive-card-details-form-main/images/card-logo.svg" alt="" srcset=""></span>
+                       <span class="user-name">Girma</span>
+                       <span class="card-num">0000 0000 0000 0000</span>
+                       <span class="ex-day">00/00</span>
+                   </div> 
+               
+                   <div class="back-card">
+                       <img class="bg-img" src="../03-interactive-card-details-form-main/images/bg-card-back.png" alt="cvc card" srcset="">
+                       <span class="cvc-num">000</span>
+                   </div>
+            </div>
+       </div>
+      </div>
+           
+   
+   
+      <div class="section-2">
+   
+           <div class="wrapper">
+   
+               <form action="">
+                  
+                   <div>
+                       <label for="user-name">CardHolder Name</label>
+                       <input  type="text" name="user-name" id="user-name">
+                   </div>
+                           
+                   <div>
+                       <label for="card-num">Card Number </label> 
+                       <input type="number" name="card-num" id="card-num">
+                   </div>
+       
+                       
+                   <div class="expiration">
+                       <div class="exp-date">
+                               <label for="exp-month">Exp.Date[MM/YY] </label> 
+                           <div class="exp-input">
+                               <input type="number" class="exp-box"  id="exp-month" name="exp-month"  placeholder="MM" min="1" max="12" required>
+                               <label for="exp-year"></label>
+                               <input  class="exp-box"  type="number" id="exp-year" name="exp-year" min="2020" max="2023" placeholder="YY" required>
+                           </div>
+                           </div>
+   
+                           <div>
+                               <label for="user-cvc">cvc   </label>
+                               <input type="number" class="cvc-box" id="user-cvc" name="user-cvc" placeholder="e.g 123" required>
+                           </div>
+                          
+                   </div>
+       
+                    <div class="form-password">
+                       <div>
+                           <label for="user-password">password </label>
+                           <input type="password" name="user-password" id="user-password" required>
+                       </div>
+       
+                        <div>
+                           <label for="confirm">confirm password </label>
+                           <input type="password" name="confirm" id="confirm-password" required>
+                       </div>
+                              
+                   </div> 
+       
+                       <button>Confirm</button>
+               </form>
+           </div> 
+        </div>
+       
+   </div>
+       
+
+       
+
+        
+
+        </div>
+    </div>
 </body>
 </html>
