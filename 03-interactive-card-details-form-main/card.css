@@ -147,13 +147,14 @@ label,input,button{
     display: block; 
     font-family: "space Grotesk",monospace ,sans-serif;
     font-weight: 500;
+    font-size: 1.2rem; 
     margin: 0.5rem;
     color:hsl(279, 6%, 55%) ;
    
 }
 input{
     max-width: 80%;
-    
+    color:  hsl(278, 68%, 11%);
     border-radius: 0.5rem;
 }
 input:focus{
@@ -167,7 +168,7 @@ button{
     width:20rem;
     background-color:hsl(278, 68%, 11%);
     color: white;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     font-size: 1rem;
 }
 button:hover{
