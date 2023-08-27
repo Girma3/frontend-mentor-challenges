@@ -19,7 +19,9 @@
                        <span class="card-logo"><img src="../03-interactive-card-details-form-main/images/card-logo.svg" alt="" srcset=""></span>
                        <span class="user-name">Girma</span>
                        <span class="card-num">0000 0000 0000 0000</span>
-                       <span class="ex-day">00/00</span>
+                       <span class="ex-day">
+                        <span class="ex-month">00</span>/<span class="ex-year">00</span>
+                       </span>
                    </div> 
                
                    <div class="back-card">
@@ -40,12 +42,14 @@
                   
                    <div>
                        <label for="user-name">CardHolder Name</label>
-                       <input  type="text" name="user-Name" id="user-name" >
+                       <input  type="text" name="user-Name" id="user-name" required >
+                       <p>user name must be 3-12 characters</p>
                    </div>
                            
                    <div>
                        <label for="card-num">Card Number </label> 
-                       <input type="number" name="card-umber" id="card-num">
+                       <input type="number" name="card-Number" id="card-num" required  max="3">
+                       <p>card number must be from 1-16 characters and numbers only.</p>
                    </div>
        
                        
@@ -53,15 +57,15 @@
                        <div class="exp-date">
                                <label for="exp-month">Exp.Date[MM/YY] </label> 
                            <div class="exp-input">
-                               <input type="number" class="exp-box"  id="exp-month" name="expired-month"  placeholder="MM" min="1" max="12" required>
+                               <input type="text" class="exp-box"  id="exp-month" name="expired-month"  placeholder="MM" required>
                                <label for="exp-year"></label>
-                               <input  class="exp-box"  type="number" id="exp-year" name="expired-year" min="2020" max="2023" placeholder="YY" required>
+                               <input  class="exp-box"  type="text" id="exp-year" name="expired-year"  placeholder="YY" required>
                            </div>
                            </div>
    
                            <div>
                                <label for="user-cvc">cvc   </label>
-                               <input type="number" class="cvc-box" id="user-cvc" name="cvc-num" placeholder="e.g 123" required>
+                               <input type="number" class="cvc-box" id="user-cvc" name="cvc-num" placeholder="e.g 123"required>
                            </div>
                           
                    </div>
@@ -70,11 +74,13 @@
                        <div>
                            <label for="user-password">password </label>
                            <input type="password" name="password" id="user-password" required>
+                           <p>password must be 5-8 chracters(@ _and - allowed).</p>
                        </div>
        
                         <div>
                            <label for="confirm-password">confirm password </label>
                            <input type="password" name="confirmation" id="confirm-password" required>
+                           <p>password didn't match,please enter again.</p>
                        </div>
                               
                    </div> 
