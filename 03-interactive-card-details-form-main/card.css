@@ -152,16 +152,32 @@ label,input,button{
     color:hsl(279, 6%, 55%) ;
    
 }
+p{
+    color:hsl(0, 100%, 66%);
+   display: none;
+}
 input{
     max-width: 80%;
     color:  hsl(278, 68%, 11%);
     border-radius: 0.5rem;
 }
+/* validation style */
 input:focus{
     border-width: 0.5rem;
-    border-style:groove; 
+    border-style:solid; 
     border-image: hsl(249, 99%, 64%) to hsl(278, 94%, 30%);
 }
+
+input:valid{
+    border-color: green;
+}
+/* show error message only input left not while the user is typing */
+input :not(:focus):invalid{
+    border-color:hsl(0, 100%, 66%);
+}
+input::not(:focus):invalid + p{
+    display: block;
+} 
 
 button{
   padding: 0.5rem;
@@ -170,6 +186,7 @@ button{
     color: white;
     border-radius: 0.5rem;
     font-size: 1rem;
+   
 }
 button:hover{
     background-color: rgb(103, 5, 142);
@@ -183,13 +200,13 @@ gap:1rem;
 
 .exp-input{
 display: flex;
-gap: 1rem;
+gap: 0.3rem;
 } 
 .exp-box{
-
-    width: 3rem;
+ width: 5rem;
 }
 .cvc-box{
+    margin-top: 1rem;
     width:10rem
 }
 
@@ -197,6 +214,8 @@ gap: 1rem;
 .form-password{
     display: flex;
     gap: 1rem;
+    box-sizing: border-box;
+   
 }
 /* form will not be hide by the card */
 @media(max-width:1162px){
