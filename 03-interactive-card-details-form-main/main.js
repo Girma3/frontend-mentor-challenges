@@ -22,22 +22,22 @@ userName.addEventListener("keyup",()=>{
     cardHolder.textContent =`${userName.value}`;
 });
 
-userCard.addEventListener('keyup',()=>{
-    cardNumber.textContent = `${userCard.value}`;
-});
+// userCard.addEventListener('keyup',()=>{
+//     cardNumber.textContent = `${userCard.value}`;
+// });
 
-exMonth.addEventListener('keyup',()=>{
-    expireMonth.textContent = `${exMonth.value}`;
-});
+// exMonth.addEventListener('keyup',()=>{
+//     expireMonth.textContent = `${exMonth.value}`;
+// });
 
-exYear.addEventListener('keyup',()=>{
-    expireYear.textContent = `${exYear.value}`;
-});
+// exYear.addEventListener('keyup',()=>{
+//     expireYear.textContent = `${exYear.value}`;
+// });
 
-userCvc.addEventListener('keyup',()=>{
+// userCvc.addEventListener('keyup',()=>{
   
-    cvcNumber.textContent = `${userCvc.value}`;
-});
+//     cvcNumber.textContent = `${userCvc.value}`;
+// });
 
 
 
@@ -54,7 +54,7 @@ const regexpressions ={
 
 }
 
-//creat function tha accept input foeld(username,password...) and regular expression
+//creat function tha accept input (username,password...) and regular expression
 function validateForm(field,regex){
     
     if(regex.test(field.value)){
@@ -80,5 +80,35 @@ function validateForm(field,regex){
         }
         });
 });
+
+//show complete message after form valid
+const successMsg = document.querySelector(".sign-up");
+const formCompleted = document.querySelector("submit-btn");
+
+const dismissMSg = document.querySelector(".continue-btn");
+const myform = document.getElementById("card-form");
+//function to show  for the user  after we stop submit from refreshing page
+function userMsg(){
+    successMsg.style.display = "flex";
+    inputForm.style.display = "none";
+}
+//to reset the form and the cards value
+
+dismissMSg.addEventListener('click',()=>{
+    //clear the form previously entered values
+    removeText();
+    myform.reset();
+    successMsg.style.display = "none";
+    inputForm.style.display = "block"; 
+});
+//function to clear and to return palceholder on the cards
+function removeText(){
+  cardHolder.textContent = "Girma";
+  cardNumber.textContent = "000 000 000";
+  expireMonth.textContent = "MM";
+  expireYear.textContent = "YY";
+  cvcNumber.textContent = "000";
+}
+
 
 
