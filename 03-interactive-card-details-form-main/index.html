@@ -18,7 +18,7 @@
                        <img  class="bg-img" src="../03-interactive-card-details-form-main/images/bg-card-front.png" alt="blue card" srcset="">
                        <span class="card-logo"><img src="../03-interactive-card-details-form-main/images/card-logo.svg" alt="" srcset=""></span>
                        <span class="user-name">Girma</span>
-                       <span class="card-num">0000 0000 0000 0000</span>
+                       <span class="card-num ">0000 0000 0000 0000</span>
                        <span class="ex-day">
                         <span class="ex-month">00</span>/<span class="ex-year">00</span>
                        </span>
@@ -26,7 +26,7 @@
                
                    <div class="back-card">
                        <img class="bg-img" src="../03-interactive-card-details-form-main/images/bg-card-back.png" alt="cvc card" srcset="">
-                       <span class="cvc-num">000</span>
+                       <span class="cvc-num ">000</span>
                    </div>
             </div>
        </div>
@@ -38,7 +38,7 @@
    
            <div class="wrapper">
    
-               <form action="">
+               <form action="goes here" method="get"  onsubmit="userMsg(); return false;">
                   
                    <div>
                        <label for="user-name">CardHolder Name</label>
@@ -88,8 +88,16 @@
                               
                    </div> 
        
-                       <button>Confirm</button>
+                       <button class="submit-btn" >Confirm</button>
                </form>
+               <!-- this part appears when form submit -->
+               <div class="sign-up">
+                <div><img src="../03-interactive-card-details-form-main/images/icon-complete.svg" alt="" srcset=""></div>
+              <h1>Thank you</h1>
+              <span>We've added your card details.</span>
+              <button class="continue-btn">Continue</button>
+            </div>
+               <!--  -->
            </div> 
         </div>
        
