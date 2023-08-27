@@ -22,22 +22,22 @@ userName.addEventListener("keyup",()=>{
     cardHolder.textContent =`${userName.value}`;
 });
 
-// userCard.addEventListener('keyup',()=>{
-//     cardNumber.textContent = `${userCard.value}`;
-// });
+userCard.addEventListener('keyup',()=>{
+    cardNumber.textContent = `${userCard.value}`;
+});
 
-// exMonth.addEventListener('keyup',()=>{
-//     expireMonth.textContent = `${exMonth.value}`;
-// });
+exMonth.addEventListener('keyup',()=>{
+    expireMonth.textContent = `${exMonth.value}`;
+});
 
-// exYear.addEventListener('keyup',()=>{
-//     expireYear.textContent = `${exYear.value}`;
-// });
+exYear.addEventListener('keyup',()=>{
+    expireYear.textContent = `${exYear.value}`;
+});
 
-// userCvc.addEventListener('keyup',()=>{
+userCvc.addEventListener('keyup',()=>{
   
-//     cvcNumber.textContent = `${userCvc.value}`;
-// });
+    cvcNumber.textContent = `${userCvc.value}`;
+});
 
 
 
@@ -110,5 +110,5 @@ function removeText(){
   cvcNumber.textContent = "000";
 }
 
-
+console.log(inputForm)
 
