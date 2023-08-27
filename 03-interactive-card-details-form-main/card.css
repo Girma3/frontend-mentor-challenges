@@ -226,3 +226,11 @@ gap: 0.2rem;
     }
  }
 
+/* after form submit hide it and show complete this message */
+.sign-up{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
