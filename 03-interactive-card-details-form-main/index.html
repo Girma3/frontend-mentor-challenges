@@ -58,29 +58,32 @@
                                <label for="exp-month">Exp.Date[MM/YY] </label> 
                            <div class="exp-input">
                                <input type="text" class="exp-box"  id="exp-month" name="expired-month"  placeholder="MM" maxlength="2" required>
+                               <p>numbers only</p>
                                <label for="exp-year"></label>
                                <input  class="exp-box"  type="text" id="exp-year" name="expired-year"  placeholder="YY" maxlength="4" required>
-                           </div>
+                         
+                            </div>
                            </div>
    
-                           <div>
+                           <div class=cvc-box>
                                <label for="user-cvc">cvc   </label>
                                <input type="text" class="cvc-box" id="user-cvc" name="cvc-num" placeholder="e.g 123"  maxlength="3" required>
-                           </div>
+                               <p>enter number only.</p>
+                            </div>
                           
                    </div>
        
                     <div class="form-password">
                        <div>
                            <label for="user-password">password </label>
-                           <input type="text" name="password" id="user-password" maxlength="8" placeholder="visible for to show" required>
-                           <p>password must be 5-8 chracters(@ _and - allowed).</p>
+                           <input type="text" name="password" id="user-password" maxlength="8" placeholder="visible for example" required>
+                           <p>password must be 5-8 chracters.</p>
                        </div>
        
                         <div>
                            <label for="confirm-password">confirm password </label>
                            <input type="text" name="confirmation" id="confirm-password" maxlength="8" required>
-                           <p>password didn't match,please enter again.</p>
+                         
                        </div>
                               
                    </div> 
