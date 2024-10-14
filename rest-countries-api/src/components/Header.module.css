@@ -1,0 +1,15 @@
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  box-shadow: 2px 5px 7px 0px black;
+  background-color: white;
+}
+.logo {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.dark {
+  border: none;
+}
