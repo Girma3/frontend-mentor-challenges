@@ -1,0 +1,14 @@
+.border,
+.back-btn {
+  width: fit-content;
+  border-radius: 1px;
+  border: none;
+  outline: none;
+  text-align: center;
+  background-color: blueviolet;
+  padding: 0.1rem;
+  padding-inline: 0.5rem;
+  letter-spacing: 1.2px;
+  box-shadow: -2px 1px 2px black;
+  font-size: 0.6rem;
+}

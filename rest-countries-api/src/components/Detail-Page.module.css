@@ -1,0 +1,54 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-inline: 3rem;
+  padding: 2rem;
+  justify-content: center;
+}
+.detail-holder {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.flag {
+  width: 400px;
+  height: 270px;
+  background-color: blue;
+}
+.name {
+  font-size: 1rem;
+  font-weight: 800;
+  padding-block: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.detail,
+.info {
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 0.17rem;
+  letter-spacing: 1px;
+}
+
+.info {
+  font-weight: 500;
+}
+.about-country {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+}
+
+@media (min-width: 700px) {
+  .detail-holder {
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+  }
+  .first-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+}

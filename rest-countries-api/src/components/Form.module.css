@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.filter {
+  border: none;
+}
+.dropdown-content {
+  display: none;
+}
+.show {
+  display: block;
+}
+.search-input {
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 7px 0px black;
+}

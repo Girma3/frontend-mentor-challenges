@@ -1,0 +1,36 @@
+.card-holder {
+  display: flex;
+  flex-direction: column;
+  width: 230px;
+  height: fit-content;
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+  background-color: brown;
+}
+.flag {
+  height: 120px;
+  width: 100%;
+  background-color: blue;
+  border-radius: 0.2rem;
+}
+.name {
+  font-size: 1rem;
+  font-weight: 800;
+  padding-block: 0.2rem;
+}
+.detail {
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+.detail-holder {
+  /* text-align: start; */
+  padding-inline: 0.5rem;
+  padding-block: 1rem;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.2rem;
+}
+.info {
+  font-weight: 300;
+}
