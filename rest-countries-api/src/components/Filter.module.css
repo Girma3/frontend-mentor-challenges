@@ -1,0 +1,31 @@
+.filter {
+  border: none;
+}
+.filter-li {
+  list-style: none;
+
+  transform: translateX(90%);
+}
+.dropdown-content {
+  position: absolute;
+  animation: slide 800ms ease-in forwards;
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+  from {
+    transform: translateX(20%);
+  }
+}
+.show {
+  display: block;
+}
+
+.filter-btn {
+  width: 2rem;
+  border: none;
+  outline: none;
+  text-align: center;
+}
