@@ -1,9 +1,20 @@
+import styles from "./CountryList.module.css";
 import Card from "./Card";
-function CountryList({ countries }) {
+import { useEffect } from "react";
+
+function CountryList({ countries, onDetail }) {
+  useEffect(
+    function () {
+      onDetail(false);
+    },
+    [onDetail]
+  );
+
   return (
-    <ul>
+    <ul className={styles["list-holder"]}>
       {countries.map((country) => (
-        <Card key={country.name} data={country} />
+        <Card key={country.name.common || data.name} data={country} />
+        //  <h1 key={country.name.common}>{country.name.official}</h1>
       ))}
     </ul>
   );
