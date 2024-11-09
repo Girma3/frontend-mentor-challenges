@@ -1,6 +1,9 @@
-import styles from "./Button.module.css";
-function Button({ children, className }) {
-  return <button className={styles[className]}>{children}</button>;
+function Button({ children, className, onAction }) {
+  return (
+    <button className={className} onClick={(e) => onAction(e)}>
+      {children}
+    </button>
+  );
 }
 
 export default Button;
