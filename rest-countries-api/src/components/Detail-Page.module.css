@@ -6,7 +6,7 @@
   padding-inline: 3rem;
   padding: 2rem;
   justify-content: start;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 .flagContainer {
@@ -23,11 +23,11 @@
 
 @keyframes wave {
   0% {
-    transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, -4deg);
+    transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, -12deg);
   }
 
   100% {
-    transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, 20deg);
+    transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, 25deg);
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -124,8 +124,9 @@
     position: absolute;
     left: 0;
     width: 10px;
+    box-shadow: 2px 2px 4px black;
     border-radius: 1rem 1rem 1rem 1rem;
-    height: clamp(20rem, 420px, 38vw);
+    height: clamp(20rem, 410px, 25vw);
     background-color: pink;
     background-image: linear-gradient(
       to bottom right,

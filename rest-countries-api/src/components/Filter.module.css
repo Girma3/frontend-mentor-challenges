@@ -1,22 +1,37 @@
-.filter {
+.filter,
+.filter-li,
+.dropdown-content,
+.filter-btn {
   border: none;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  z-index: 1;
+}
+.filter {
+  position: relative;
+  margin-bottom: 0.2rem;
+  box-shadow: 0px 2px 4px black;
 }
 .filter-li {
   list-style: none;
-
-  transform: translateX(90%);
+  padding: 0;
 }
 .dropdown-content {
   position: absolute;
+  box-shadow: 0px 2px 3px black;
+  width: max(7rem, 140px);
   animation: slide 800ms ease-in forwards;
 }
 
 @keyframes slide {
   to {
-    transform: translateX(-50%);
+    transform: translateX(-1%);
   }
   from {
-    transform: translateX(20%);
+    transform: translateX(10%);
   }
 }
 .show {
@@ -27,5 +42,15 @@
   width: 2rem;
   border: none;
   outline: none;
-  text-align: center;
+  text-align: start;
+  background-color: inherit;
+  color: inherit;
+}
+.lightMode {
+  background-color: rgb(255, 255, 255);
+  color: hsl(200, 15%, 8%);
+}
+.darkMode {
+  background-color: hsl(207, 26%, 17%);
+  color: white;
 }
