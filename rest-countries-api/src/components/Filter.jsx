@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
 import styles from "./Filter.module.css";
-import { useState } from "react";
 import Button from "./Button";
 import { useTheme } from "./ThemeContext";
+import { IoIosArrowDown } from "react-icons/io";
+import { MdKeyboardArrowUp } from "react-icons/md";
 
 function Filter({ onFilter, show, setShow }) {
-  // const [show, setShow] = useState(false);
   const { theme } = useTheme();
+
   return (
     <div className={styles.wrapper}>
       <div>
@@ -16,7 +16,8 @@ function Filter({ onFilter, show, setShow }) {
           }`}
           onAction={() => setShow(() => !show)}
         >
-          Filter by Region <span>^</span>
+          Filter by Region{" "}
+          <span>{show ? <MdKeyboardArrowUp /> : <IoIosArrowDown />}</span>
         </Button>
 
         {show && (
