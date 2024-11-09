@@ -2,20 +2,22 @@ import styles from "./CountryList.module.css";
 import Card from "./Card";
 import { useEffect } from "react";
 
-function CountryList({ countries, onDetail }) {
+function CountryList({ countries = [], onDetail = null, onAction }) {
   useEffect(
     function () {
-      onDetail(false);
+      onDetail(true);
     },
     [onDetail]
   );
 
   return (
     <ul className={styles["list-holder"]}>
-      {countries.map((country) => (
-        <Card key={country.name.common || data.name} data={country} />
-        //  <h1 key={country.name.common}>{country.name.official}</h1>
-      ))}
+      {countries.map((country) => {
+        let countryName = country.name.common || country.name;
+        return (
+          <Card key={`${countryName} `} data={country} onAction={onAction} />
+        );
+      })}
     </ul>
   );
 }
