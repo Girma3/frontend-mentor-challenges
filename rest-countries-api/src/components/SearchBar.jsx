@@ -1,6 +1,4 @@
 import styles from "./SearchBar.module.css";
-
-import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useTheme } from "./ThemeContext";
 import { useEffect, useRef } from "react";
 function SearchBar({ onAction, query, msg }) {
