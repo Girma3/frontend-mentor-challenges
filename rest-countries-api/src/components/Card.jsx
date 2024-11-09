@@ -17,7 +17,9 @@ function Card({ data = {}, onAction }) {
   return (
     <li
       className={` ${theme === "light" ? styles.lightMode : styles.darkMode} 
-     ${styles["card-holder"]}
+      ${
+        theme === "light" ? styles["cardHolderLight"] : styles["cardHolderDark"]
+      }
       `}
       onClick={onAction}
     >
