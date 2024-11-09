@@ -4,34 +4,62 @@ import styles from "./Detail-Page.module.css";
 import { useTheme } from "./ThemeContext";
 import { useEffect } from "react";
 
-function findCountry(array, name) {
-  return array.find(
-    (country) => (country.name.official || country.name) === name
-  );
+function findCountry(array, name, msg) {
+  if (msg === "api") {
+    return array.find((country) => country.name.common === name);
+  } else if (msg === "local" || msg === null) {
+    return array.find((country) => country.name === name);
+  }
 }
 
-function findBorderCountry(countriesArray, bordersArray) {
+function findBorderCountry(countriesArray, bordersArray, msg) {
+  if (bordersArray === undefined || bordersArray === null) return [];
+  let nameProperty = "";
+  if (msg === "api") {
+    nameProperty = "cca3";
+  } else if (msg === "local" || msg === null) {
+    nameProperty = "alpha3Code";
+  }
   return countriesArray.filter((country) =>
-    bordersArray.includes(country.cca3)
+    bordersArray.includes(country[nameProperty])
   );
 }
-function Detail({ countries, onDetail }) {
-  const navigate = useNavigate();
+function Detail({ countries, onDetail, msg }) {
   const { name } = useParams();
   const { theme } = useTheme();
-  let country = findCountry(countries, name);
+  const navigate = useNavigate();
+  let country = findCountry(countries, name, msg);
 
   useEffect(
     function () {
-      onDetail(true);
+      onDetail(false);
     },
     [onDetail]
   );
-  const currencyKey = Object.keys(country.currencies)[0]; // get the first currency key
-  const currencyName = country.currencies[currencyKey].name;
-  const langKey = Object.keys(country.languages)[0]; // get language first key
-  const langName = country.languages[langKey].name;
-  let boarders = findBorderCountry(countries, country.borders); // get all the boarders using 'cca3' property
+  if (country === undefined) return <span> sorry, refresh again.</span>;
+  let boarders = findBorderCountry(countries, country.borders, msg); // get all the borders
+  let currencyName,
+    langName,
+    nativeName = "";
+  langName = "";
+  let currencyKey,
+    langKey,
+    nativeNameKey = "";
+  //function to check the data coming from local json file or api call and get appropriate property
+  function checkData(msg) {
+    if (msg === "local" || msg === null) {
+      langName = country.languages[0].name;
+      nativeName = country.nativeName;
+    } else if (msg === "api") {
+      currencyKey = Object.keys(country.currencies)[0]; // get the first currency key
+      currencyName = country.currencies[currencyKey].name;
+      langKey = Object.keys(country.languages)[0]; // get language first key
+      langName = country.languages[langKey];
+      nativeNameKey = Object.keys(country.name.nativeName)[0];
+      nativeName = `${nativeNameKey}: ${country.name.nativeName[nativeNameKey].common}`;
+    }
+  }
+  checkData(msg);
 
   return (
     <div className={styles["wrapper"]}>
@@ -56,20 +84,22 @@ function Detail({ countries, onDetail }) {
       </Button>
 
       <div className={styles["detail-holder"]}>
-        <img
-          src={`${country.flags.png}`}
-          className={styles.flag}
-          alt={`${country.name.common || country.name} flag`}
-        />
+        <div className={styles.flagContainer}>
+          <img
+            src={`${country.flags.png}`}
+            alt={`${country.name.common || country.name} flag`}
+            className={styles.flag}
+          />
+        </div>
         <div className={styles["first-info"]}>
           <div className={styles["about-country"]}>
             <section>
               <h1 className={styles.name}>
-                {country.name.official || country.name}
+                {country.name.common || country.name}
               </h1>
               <p className={styles.detail}>
                 Native-Name:
-                <span className={styles.info}>{country.nativeName}</span>
+                <span className={styles.info}>{nativeName}</span>
               </p>
               <p className={styles.detail}>
                 Region: <span className={styles.info}>{country.region}</span>
@@ -85,7 +115,9 @@ function Detail({ countries, onDetail }) {
             <section className={styles["second-info"]}>
               <p className={styles.detail}>
                 Top Level Domain:{" "}
-                <span className={styles.info}>{country.topLevelDomain}</span>
+                <span className={styles.info}>
+                  {country.topLevelDomain || country.tld[0]}
+                </span>
               </p>
               <p className={styles.detail}>
                 Currencies: <span className={styles.info}>{currencyName}</span>{" "}
@@ -97,22 +129,30 @@ function Detail({ countries, onDetail }) {
           </div>
           <section className={styles.borderHolder}>
             <h2 className={styles.detail}>Border Countries: </h2>
-            {boarders.map((border) => (
-              <Button
-                key={border.name.common || border.name}
-                className={`${styles.borderBtn} ${
-                  theme === "light" ? styles.lightMode : styles.darkMode
-                }`}
-                onAction={() =>
-                  navigate(`/countries/${border.name.official || border.name}`)
-                }
-              >
-                {" "}
-                <span className={styles.info}>
-                  {border.name.common || border.name}
-                </span>{" "}
-              </Button>
-            ))}
+            <ul className={styles.borderList}>
+              {" "}
+              {boarders.map((border, i) => (
+                <li key={border.name.common || i}>
+                  <Button
+                    key={border.name.common || border.name}
+                    className={`${styles.borderBtn} ${
+                      theme === "light" ? styles.lightMode : styles.darkMode
+                    }`}
+                    onAction={() =>
+                      navigate(
+                        `/countries/${border.name.common || border.name}`
+                      )
+                    }
+                  >
+                    {" "}
+                    <span className={styles.info}>
+                      {border.name.common || border.name}
+                    </span>{" "}
+                  </Button>{" "}
+                </li>
+              ))}
+              {boarders.length === 0 && <span>none</span>}
+            </ul>
           </section>
         </div>
       </div>
