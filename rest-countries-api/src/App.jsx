@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
-
-import CountryList from "./components/CountryList";
+import { ThemeProvider } from "./components/ThemeContext";
+import useLocalStorageState from "./components/useLocalStorageState";
+import useFetch from "./components/useFetch";
 import Filter from "./components/Filter";
 import SearchBar from "./components/SearchBar";
 import Header from "./components/Header";
-import Detail from "./components/Detail-Page";
 import Loading from "./components/Loading";
-import Card from "./components/Card";
-import { Route, BrowserRouter, Routes, Router } from "react-router-dom";
-
-import { data as list } from "./components/data";
 import InfiniteScroll from "react-infinite-scroller";
-import useFetch from "./components/useFetch";
-
-import { ThemeProvider } from "./components/ThemeContext";
-
 import Assemble from "./components/Assemble";
-import useLocalStorageState from "./components/useLocalStorageState";
+import { useNavigate, useNavigation } from "react-router-dom";
+import { MdSportsGolf } from "react-icons/md";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,7 +32,18 @@ function App() {
     let continents = ["africa", "asia", "america", "oceania", "europe"];
 
     const controller = new AbortController();
-    setLoading(true);
+    setLoading(() => true);
+    function sortCountriesByName(countries) {
+      if (countries.length === 0) return [];
+      if (network === null) {
+        const sortedCountries = countries.sort((a, b) =>
+          a.name.common.localeCompare(b.name.common)
+        );
+        setCountries(() => [...sortedCountries]);
+        setFilteredCountries(() => [...sortedCountries]);
+      }
+    }
+
     async function allCountries(array) {
       try {
         const promises = array.map(async (region) => {
@@ -51,10 +55,11 @@ function App() {
 
         const responses = await Promise.all(promises);
         const flattenedResponses = responses.flat(); // Flatten array of arrays
-        setCountries(flattenedResponses);
-        setFilteredCountries(flattenedResponses);
+        // setCountries(flattenedResponses);
+        // setFilteredCountries(flattenedResponses);
         setNetwork(() => "api");
-        return flattenedResponses;
+
+        return sortCountriesByName(flattenedResponses);
       } catch (err) {
         if (err.name === "AbortError") {
           setMsg(() => null);
@@ -67,7 +72,7 @@ function App() {
     allCountries(continents);
     setLoading(() => false);
     return () => controller.abort();
-  }, [setCountries, setFilteredCountries]);
+  }, [setCountries, setFilteredCountries, countries, network]);
 
   function handleQuery(e) {
     setSearchQuery((prev) => {
@@ -76,10 +81,11 @@ function App() {
       }
     });
   }
+
   function handleFilter(e) {
     setSelectedFilter(() => e.target.textContent);
     setMsg(() => null);
-    setSearchQuery("");
+    setSearchQuery(() => "");
   }
   useEffect(
     function () {
@@ -132,59 +138,34 @@ function App() {
     if (
       msg === "Please refresh and try again." ||
       msg === "Fetch error, please refresh try again." ||
-      countries.length < 10
+      (countries.length < 10 && msg !== null)
     ) {
+      console.log("kopp", msg);
       setCountries(() => [...data]);
       setFilteredCountries(() => [...data]);
       setMsg(() => null);
       setNetwork(() => "local");
     }
   }, [countries.length, setCountries, setFilteredCountries, data, msg]);
-  useEffect(() => {
-    function sortCountriesByName() {
-      if (network === null) return;
-      if (network === "api") {
-        const sortedCountries = countries.sort((a, b) =>
-          a.name.common.localeCompare(b.name.common)
-        );
 
-        setCountries(() => [...sortedCountries]);
-        setFilteredCountries(() => [...sortedCountries]);
-      }
-    }
-    sortCountriesByName();
-    return () => setNetwork(() => null);
-  }, [network, setCountries, countries, setFilteredCountries]);
   function handleCloseFilter() {
     setShow(() => false);
   }
   return (
     <ThemeProvider>
-      {msg === null && (
-        <Assemble
-          handleQuery={handleQuery}
-          filteredCountries={filteredCountries}
-          countries={countries}
-          onFilter={handleFilter}
-          query={searchQuery}
-          msg={network}
-          show={show}
-          setShow={setShow}
-          onAction={handleCloseFilter}
-        />
-      )}
-      {loading && <Loading />}
-
-      {msg && (
-        <>
-          <Header />{" "}
-          <nav className="wrapper">
-            <SearchBar onAction={handleQuery} query={searchQuery} />
-            <Filter onFilter={handleFilter} />
-          </nav>{" "}
-          <p>{msg}</p>
-        </>
-      )}
+      <Assemble
+        handleQuery={handleQuery}
+        filteredCountries={filteredCountries}
+        countries={countries}
+        onFilter={handleFilter}
+        query={searchQuery}
+        msg={network}
+        show={show}
+        setShow={setShow}
+        onAction={handleCloseFilter}
+        userMsg={msg}
+      />
+      {loading || (countries.length < 100 && <Loading />)}
     </ThemeProvider>
   );
 }
