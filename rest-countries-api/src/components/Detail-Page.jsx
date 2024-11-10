@@ -36,6 +36,15 @@ function Detail({ countries, onDetail, msg }) {
     },
     [onDetail]
   );
+
+  useEffect(
+    function () {
+      if (!name) return;
+      document.title = `${name}`;
+    },
+    [name]
+  );
+
   if (country === undefined) return <span> sorry, refresh again.</span>;
   let boarders = findBorderCountry(countries, country.borders, msg); // get all the borders
   let currencyName,
