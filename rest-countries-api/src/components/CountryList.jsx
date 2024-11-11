@@ -1,7 +1,6 @@
 import styles from "./CountryList.module.css";
 import Card from "./Card";
 import { useEffect } from "react";
-
 function CountryList({ countries = [], onDetail = null, onAction }) {
   useEffect(
     function () {
