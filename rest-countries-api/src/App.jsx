@@ -17,7 +17,7 @@ function App() {
   const [msg, setMsg] = useState(null);
   const [show, setShow] = useState(false);
   const [network, setNetwork] = useState(null);
-  const { data, error, isLoading } = useFetch("data/data.json");
+  const { data, error, isLoading } = useFetch("/data/data.json");
   const [countries, setCountries] = useLocalStorageState([], "countries");
   const [filteredCountries, setFilteredCountries] = useLocalStorageState(
     [],
@@ -48,17 +48,16 @@ function App() {
       try {
         const promises = array.map(async (region) => {
           const regionUrl = `https://restcountries.com/v3.1/region/${region}`;
-          const request = await fetch(regionUrl, { signal: controller.signal });
+          const request = await fetch(regionUrl, {
+            signal: controller.signal,
+          });
           const response = await request.json();
           return response;
         });
 
         const responses = await Promise.all(promises);
         const flattenedResponses = responses.flat(); // Flatten array of arrays
-        // setCountries(flattenedResponses);
-        // setFilteredCountries(flattenedResponses);
         setNetwork(() => "api");
-
         return sortCountriesByName(flattenedResponses);
       } catch (err) {
         if (err.name === "AbortError") {
@@ -140,7 +139,6 @@ function App() {
       msg === "Fetch error, please refresh try again." ||
       (countries.length < 10 && msg !== null)
     ) {
-      console.log("kopp", msg);
       setCountries(() => [...data]);
       setFilteredCountries(() => [...data]);
       setMsg(() => null);
