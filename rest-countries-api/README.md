@@ -28,14 +28,14 @@ Users should be able to:
 
 ### Screenshot
 
-![desktop-search-design](/assets/images/search.png)
-![mobile-design](/assets/images/mobile-design.png)
-![detail-page-desktop-design](/assets/images/detail-page.png)
+![desktop-search-design](/public/assets/images/search.png)
+![mobile-design](/public/assets/images/mobile-design.png)
+![detail-page-desktop-design](/public/assets/images/detail-page.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Add solution URL here](https://github.com/Girma3/frontend-mentor-challenges/tree/main/rest-countries-api)
+- Live Site URL: [Add live site URL here](https://frontend-mentor-challenges-peach.vercel.app/m)
 
 ## My process
 
@@ -60,8 +60,6 @@ Users should be able to:
 
 - Learn more advanced method for better state management.
 - learn more about nested navigation.
-
-*
 
 ## Author
 
