@@ -11,7 +11,7 @@ function CountryList({ countries = [], onDetail = null, onAction }) {
   );
 
   return (
-    <ul className={styles["list-holder"]}>
+    <ul className={styles["listHolder"]}>
       {countries.map((country) => {
         let countryName = country.name.common || country.name;
         return (

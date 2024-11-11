@@ -41,7 +41,9 @@ function Detail({ countries, onDetail, msg }) {
     function () {
       if (!name) return;
       document.title = `${name}`;
+      return () => (document.title = `rest-countries-Api`);
     },
+
     [name]
   );
 
@@ -64,8 +66,8 @@ function Detail({ countries, onDetail, msg }) {
       currencyName = country.currencies[currencyKey].name;
       langKey = Object.keys(country.languages)[0]; // get language first key
       langName = country.languages[langKey];
-      nativeNameKey = Object.keys(country.name.nativeName)[0];
-      nativeName = `${nativeNameKey}: ${country.name.nativeName[nativeNameKey].common}`;
+      nativeNameKey = Object.keys(country.name.nativeName)[0]; //get native name first key
+      nativeName = `${country.name.nativeName[nativeNameKey].common} (${nativeNameKey})`;
     }
   }
   checkData(msg);
