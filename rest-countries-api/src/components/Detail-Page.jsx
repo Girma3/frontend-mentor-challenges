@@ -54,11 +54,11 @@ function Detail({ countries, onDetail, msg, resetQuery }) {
     },
     [name]
   );
-  let country = findCountry(countries, name, msg);
+  let country = findCountry(countries, selectedCountry, msg);
   if (country === undefined)
     return (
       <>
-        <span>Sorry,refresh and try again.</span>
+        <span>Getting a data...</span>
         <Loading />
       </>
     );
