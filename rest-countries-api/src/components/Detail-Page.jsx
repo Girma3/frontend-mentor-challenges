@@ -3,15 +3,9 @@ import Button from "./Button";
 import styles from "./Detail-Page.module.css";
 import { useTheme } from "./ThemeContext";
 import { useEffect } from "react";
-
-function findCountry(array, name, msg) {
-  if (msg === "api") {
-    return array.find((country) => country.name.common === name);
-  } else if (msg === "local" || msg === null) {
-    return array.find((country) => country.name === name);
-  }
-}
-
+import Loading from "./Loading";
+import { findCountry } from "./functions";
+import useLocalStorageState from "./useLocalStorageState";
 function findBorderCountry(countriesArray, bordersArray, msg) {
   if (bordersArray === undefined || bordersArray === null) return [];
   let nameProperty = "";
@@ -24,17 +18,32 @@ function findBorderCountry(countriesArray, bordersArray, msg) {
     bordersArray.includes(country[nameProperty])
   );
 }
-function Detail({ countries, onDetail, msg }) {
+
+function Detail({ countries, onDetail, msg, resetQuery }) {
+  const [selectedCountry, setSelectedCountry] = useLocalStorageState(
+    "",
+    "selectedCountry"
+  );
   const { name } = useParams();
   const { theme } = useTheme();
   const navigate = useNavigate();
-  let country = findCountry(countries, name, msg);
+  useEffect(
+    function () {
+      resetQuery();
+    },
+    [resetQuery]
+  );
 
+  function handleSelectedCountry() {
+    setSelectedCountry(() => "");
+    navigate(-1);
+  }
   useEffect(
     function () {
       onDetail(false);
+      setSelectedCountry(() => name);
     },
-    [onDetail]
+    [onDetail, name, setSelectedCountry]
   );
 
   useEffect(
@@ -43,11 +52,17 @@ function Detail({ countries, onDetail, msg }) {
       document.title = `${name}`;
       return () => (document.title = `rest-countries-Api`);
     },
-
     [name]
   );
+  let country = findCountry(countries, name, msg);
+  if (country === undefined)
+    return (
+      <>
+        <span>Sorry,refresh and try again.</span>
+        <Loading />
+      </>
+    );
 
-  if (country === undefined) return <span> sorry, refresh again.</span>;
   let boarders = findBorderCountry(countries, country.borders, msg); // get all the borders
   let currencyName,
     langName,
@@ -58,10 +73,10 @@ function Detail({ countries, onDetail, msg }) {
     nativeNameKey = "";
   //function to check the data coming from local json file or api call and get appropriate property
   function checkData(msg) {
-    if (msg === "local" || msg === null) {
+    if (msg === "local") {
       langName = country.languages[0].name;
       nativeName = country.nativeName;
-    } else if (msg === "api") {
+    } else if (msg === "api" || msg === null) {
       currencyKey = Object.keys(country.currencies)[0]; // get the first currency key
       currencyName = country.currencies[currencyKey].name;
       langKey = Object.keys(country.languages)[0]; // get language first key
@@ -78,7 +93,7 @@ function Detail({ countries, onDetail, msg }) {
         className={`${styles.backBtn} ${
           theme === "light" ? styles.lightMode : styles.darkMode
         }`}
-        onAction={() => navigate(-1)}
+        onAction={handleSelectedCountry}
       >
         <svg
           className={`${
