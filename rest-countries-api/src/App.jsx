@@ -10,13 +10,14 @@ import InfiniteScroll from "react-infinite-scroller";
 import Assemble from "./components/Assemble";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { MdSportsGolf } from "react-icons/md";
+import { findContinent } from "./components/functions";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState(null);
   const [show, setShow] = useState(false);
-  const [network, setNetwork] = useState(null);
+  const [network, setNetwork] = useLocalStorageState(null, "network");
   const { data, error, isLoading } = useFetch("/data/data.json");
   const [countries, setCountries] = useLocalStorageState([], "countries");
   const [filteredCountries, setFilteredCountries] = useLocalStorageState(
@@ -30,6 +31,7 @@ function App() {
 
   useEffect(() => {
     let continents = ["africa", "asia", "america", "oceania", "europe"];
+    if (countries.length > 100) return;
 
     const controller = new AbortController();
     setLoading(() => true);
@@ -71,7 +73,7 @@ function App() {
     allCountries(continents);
     setLoading(() => false);
     return () => controller.abort();
-  }, [setCountries, setFilteredCountries, countries, network]);
+  }, [setCountries, setFilteredCountries, setNetwork, countries, network]);
 
   function handleQuery(e) {
     setSearchQuery((prev) => {
@@ -92,7 +94,7 @@ function App() {
       setLoading(() => true);
       function filterContinent() {
         return countries.filter((country) =>
-          country.region.toLowerCase().includes(selectedFilter.toLowerCase())
+          country.region.includes(selectedFilter)
         );
       }
       let filteredContinents = filterContinent();
@@ -134,6 +136,7 @@ function App() {
   }, [searchQuery, countries, setFilteredCountries]);
 
   useEffect(() => {
+    if (countries.length > 100) return;
     if (
       msg === "Please refresh and try again." ||
       msg === "Fetch error, please refresh try again." ||
@@ -144,10 +147,27 @@ function App() {
       setMsg(() => null);
       setNetwork(() => "local");
     }
-  }, [countries.length, setCountries, setFilteredCountries, data, msg]);
+  }, [
+    countries.length,
+    setCountries,
+    setFilteredCountries,
+    setNetwork,
+    data,
+    msg,
+  ]);
 
   function handleCloseFilter() {
     setShow(() => false);
+  }
+  function handleResetQuery() {
+    if (searchQuery === "") return;
+    setSearchQuery(() => "");
+    if (selectedFilter === null) {
+      setFilteredCountries(() => [...countries]);
+      return;
+    }
+    let currentContinentCountries = findContinent(countries, selectedFilter);
+    setFilteredCountries(() => [...currentContinentCountries]);
   }
   return (
     <ThemeProvider>
@@ -162,6 +182,7 @@ function App() {
         setShow={setShow}
         onAction={handleCloseFilter}
         userMsg={msg}
+        resetQuery={handleResetQuery}
       />
       {loading || (countries.length < 100 && <Loading />)}
     </ThemeProvider>

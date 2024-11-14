@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter, useNavigate } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 import Filter from "./Filter";
@@ -6,7 +6,8 @@ import CountryList from "./CountryList";
 import Detail from "./Detail-Page";
 import { useTheme } from "./ThemeContext";
 import styles from "./Assemble.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import useLocalStorageState from "./useLocalStorageState";
 
 function Assemble({
   handleQuery,
@@ -19,10 +20,10 @@ function Assemble({
   setShow,
   onAction,
   userMsg,
+  resetQuery,
 }) {
   const { theme } = useTheme();
   const [showDetail, setDetail] = useState(true);
-  
 
   function handleDetailPage(value) {
     if (typeof value !== "boolean") return; // Ensure value is a boolean
@@ -73,6 +74,7 @@ function Assemble({
                   countries={countries}
                   onDetail={handleDetailPage}
                   msg={msg}
+                  resetQuery={resetQuery}
                 />
               }
             />
