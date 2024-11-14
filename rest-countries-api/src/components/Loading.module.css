@@ -19,21 +19,21 @@
   background-color: rgb(231, 224, 224);
 }
 .dot:nth-child(1) {
-  animation: alternateGreenColor 1.2s ease-in-out alternate infinite;
+  animation: alternateGreenColor 1s ease-in-out alternate infinite;
 }
 .dot:nth-child(2) {
-  animation: alternateYellowColor 2.2s ease-in-out alternate infinite;
+  animation: alternateYellowColor 1.2s ease-in-out alternate infinite;
 }
 .dot:nth-child(3) {
-  animation: alternateRedColor 3s ease-in-out alternate infinite;
+  animation: alternateRedColor 2s ease-in-out alternate infinite;
 }
 @keyframes alternateGreenColor {
   0% {
-    background-color: grey;
+    background-color: rgb(32, 216, 0);
   }
 
   100% {
-    background-color: Green;
+    background-color: rgb(128, 105, 0);
   }
 }
 @keyframes alternateYellowColor {
