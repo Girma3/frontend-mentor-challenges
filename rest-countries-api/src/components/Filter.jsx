@@ -6,6 +6,10 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 
 function Filter({ onFilter, show, setShow }) {
   const { theme } = useTheme();
+  function handleFilter(e) {
+    onFilter(e);
+    setShow(() => !show);
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -27,27 +31,27 @@ function Filter({ onFilter, show, setShow }) {
             }`}
           >
             <li className={styles["filter-li"]}>
-              <Button className={styles["filter-btn"]} onAction={onFilter}>
+              <Button className={styles["filter-btn"]} onAction={handleFilter}>
                 Africa
               </Button>
             </li>
             <li className={styles["filter-li"]}>
-              <Button className={styles["filter-btn"]} onAction={onFilter}>
+              <Button className={styles["filter-btn"]} onAction={handleFilter}>
                 America
               </Button>
             </li>
             <li className={styles["filter-li"]}>
-              <Button className={styles["filter-btn"]} onAction={onFilter}>
+              <Button className={styles["filter-btn"]} onAction={handleFilter}>
                 Asia
               </Button>
             </li>
             <li className={styles["filter-li"]}>
-              <Button className={styles["filter-btn"]} onAction={onFilter}>
+              <Button className={styles["filter-btn"]} onAction={handleFilter}>
                 Europe
               </Button>
             </li>
             <li className={styles["filter-li"]}>
-              <Button className={styles["filter-btn"]} onAction={onFilter}>
+              <Button className={styles["filter-btn"]} onAction={handleFilter}>
                 Oceania
               </Button>
             </li>
