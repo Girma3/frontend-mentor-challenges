@@ -1,0 +1,134 @@
+.formHolder {
+  width: 100%;
+  max-width: 1200px;
+  align-content: center;
+}
+.billing {
+  display: flex;
+}
+.flexRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+.paymentType {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: rgb(147, 81, 1);
+}
+
+label,
+.paymentMethod {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+label:hover {
+  color: green;
+}
+.paymentHolder {
+  align-items: start;
+}
+.paymentMethod {
+  padding: 0;
+  margin: 0;
+}
+
+input,
+.radioLabel {
+  border: 2px solid rgb(146, 146, 146);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: text;
+  text-shadow: 0px 1px 0px yellow;
+}
+input:focus {
+  border: 2px solid orange;
+  outline: 0px solid orange;
+}
+.radioLabel {
+  margin-bottom: 0.2rem;
+}
+
+/* summary style */
+.summary {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.summaryHolder {
+  width: 40%;
+  max-width: 300px;
+}
+.productList {
+  padding: 0;
+}
+.holder {
+  display: grid;
+  grid-template-areas: "image product amount";
+  grid-template-columns: 1fr 1fr 5fr;
+}
+.productImage {
+  width: 80px;
+  height: 70px;
+  background-color: blue;
+  grid-area: image;
+}
+.product {
+  grid-area: product;
+}
+.quantity {
+  grid-area: amount;
+  justify-self: end;
+}
+.paymentName,
+.price,
+.productPrice,
+.quantity {
+  color: rgb(86, 86, 86);
+  padding: 0.4rem;
+  margin: 0;
+  font-weight: 400;
+  text-shadow: 0px -1px 0px pink;
+}
+.price,
+.productName {
+  color: black;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.grandTotal {
+  color: rgb(145, 94, 0);
+  font-weight: 600;
+}
+.payBtn {
+  padding: 1rem;
+  border: none;
+  outline: none;
+  background-color: rgb(189, 89, 1);
+  color: antiquewhite;
+  letter-spacing: 1.5px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  border-radius: 0.3rem;
+  transition: all 1s ease;
+}
+.payBtn:hover {
+  color: blue;
+}
