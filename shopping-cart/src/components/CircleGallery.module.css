@@ -1,0 +1,259 @@
+.flexColumn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 600px;
+  padding-block: 2.5rem;
+  background-color: blueviolet;
+}
+
+.circle {
+  position: relative;
+  width: 100%;
+  height: 20%;
+  border-radius: 50%;
+  background-color: rgb(248, 0, 0);
+  transition: all 2s ease-in-out;
+}
+.firstCircle {
+  position: absolute;
+  bottom: 10%;
+}
+.firstCircle:after {
+  content: "";
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: blue;
+  background-color: rgb(194, 194, 194);
+}
+.topCircles {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.secondCircle {
+  position: absolute;
+  width: 85%;
+  height: 60%;
+  top: 3%;
+  left: 5.8%;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  z-index: 2;
+}
+.secondCircle::after {
+  content: "";
+  position: absolute;
+  width: 97%;
+  height: 96%;
+  left: 1.5%;
+  top: 2%;
+  border-radius: 50%;
+  background-color: rgb(19, 1, 216);
+}
+.thirdCircle {
+  position: absolute;
+  z-index: 1;
+  width: 98%;
+  height: 70%;
+  top: -2%;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+}
+.thirdCircle::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 98%;
+  height: 98%;
+  top: 1%;
+  left: 1%;
+  border-radius: 50%;
+  background-color: rgb(25, 205, 1);
+}
+
+/*  */
+/* zx9 speaker style */
+.zx9SpeakerHolder {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(240, 106, 11);
+}
+.zx9SpeakerImage {
+  padding: 0.5rem;
+  width: 150px;
+  height: 300px;
+}
+
+.aboutZx9Speaker {
+  text-align: center;
+  letter-spacing: 1.5px;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 90%;
+}
+.aboutProduct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 6rem;
+  min-width: 357px;
+  z-index: 4;
+}
+.speakerImage {
+  width: 150px;
+  height: 250px;
+}
+/* btn style */
+.seeProductBtn {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  padding: 1rem;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  border: 2px solid black;
+  outline: none;
+  border-radius: 0.2rem;
+
+  transition: all 0.3s ease-in-out;
+}
+.btnHolder {
+  position: relative;
+}
+.seeProductBtn > span {
+  position: relative;
+  z-index: 1;
+}
+.seeProductBtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 185px;
+  border-radius: 0.2rem;
+  background-color: rgb(248, 190, 0);
+  transform-origin: bottom;
+  transform: scaleX(0);
+  transition: transform 500ms ease;
+  z-index: 0;
+}
+
+.seeProductBtn:hover::after {
+  transform: scale(1);
+}
+@media (min-width: 500px) {
+  .flexColumn {
+    height: 90vh;
+  }
+  .aboutProduct {
+    top: 5rem;
+  }
+  .firstCircle {
+    bottom: 22%;
+  }
+  .secondCircle {
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    top: -9%;
+    left: 10%;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    z-index: 2;
+  }
+  .thirdCircle {
+    position: absolute;
+    z-index: 1;
+    width: 98%;
+    height: 80%;
+    top: -12%;
+    left: 1%;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+  }
+}
+@media (min-width: 760px) {
+  .flexColumn {
+    height: 300px;
+    overflow: hidden;
+  }
+  .info {
+    position: absolute;
+    top: 0;
+    left: 20rem;
+    z-index: 9;
+    width: 100%;
+  }
+  .aboutZx9Speaker {
+    text-align: start;
+  }
+  .firstCircle {
+    position: absolute;
+    bottom: 0%;
+    left: -2%;
+    width: 730px;
+    height: 110%;
+  }
+
+  .firstCircle::after {
+    content: "";
+    position: absolute;
+    width: 98%;
+    left: 1%;
+    height: 95%;
+    top: 2%;
+    border-radius: 50%;
+    background-color: blue;
+    background-color: rgb(194, 194, 194);
+  }
+  .secondCircle {
+    width: 400px;
+    height: 400px;
+    top: 42%;
+    left: 55px;
+  }
+  .secondCircle::after {
+    left: 1.5%;
+  }
+
+  .thirdCircle {
+    width: 500px;
+    height: 500px;
+    top: 30%;
+    left: 1%;
+  }
+
+  .thirdCircle::after {
+    top: 1%;
+    width: 480px;
+    aspect-ratio: 1;
+    left: 2%;
+  }
+  .aboutProduct {
+    flex-direction: row;
+    bottom: -15%;
+    left: 140px;
+  }
+  .speakerImage {
+    width: 250px;
+    height: 350px;
+  }
+}

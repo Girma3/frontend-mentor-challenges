@@ -1,0 +1,38 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  height: 180px;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  box-shadow: 0px 7px 8px 0px rgba(0, 0, 0, 0.3);
+  perspective: 1000px;
+  perspective-origin: center;
+  background-color: rgb(228, 226, 226);
+}
+
+.linkHolder {
+  position: absolute;
+  bottom: 0;
+  padding: 0.5rem;
+  color: black;
+}
+.productLinkImage,
+.productLinkImage > img {
+  position: absolute;
+  top: -15%;
+  z-index: 4;
+  width: 200px;
+  aspect-ratio: 1;
+}
+.shopBtn {
+  padding: 0.7rem;
+  border: none;
+  outline: none;
+  color: rgb(135, 126, 111);
+}
+.productName {
+  font-size: 1rem;
+}
