@@ -1,0 +1,39 @@
+.cart {
+  grid-area: cart;
+  justify-self: end;
+  background: url(/assets/shared/icon-cart.svg) no-repeat center;
+  background-size: contain;
+  width: 25px;
+  aspect-ratio: 1;
+  padding: 0.5rem;
+  border: none;
+}
+.cart:hover {
+  transform: scale(1.1);
+}
+.cartHolder {
+  position: relative;
+  height: 30px;
+}
+.itemsQuantity {
+  position: absolute;
+  top: -36%;
+  right: -35%;
+  aspect-ratio: 1;
+  width: 20px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(16, 0, 109);
+  color: rgb(232, 201, 0);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+dialog {
+  background-color: red;
+
+  /* overflow-y: scroll;
+  scroll-behavior: smooth; */
+
+  border-radius: 4px;
+  justify-content: space-around;
+}
