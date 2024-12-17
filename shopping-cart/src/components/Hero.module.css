@@ -1,0 +1,63 @@
+.hero {
+  display: flex;
+  background-color: rgb(0, 0, 0);
+  width: 100%;
+  height: 60vh;
+  color: white;
+  letter-spacing: 2px;
+  transition: all 1.5s ease;
+}
+.aboutProduct {
+  position: absolute;
+  top: 25%;
+  left: max(4rem, max(4rem, 25%));
+  text-align: center;
+  text-shadow: 0px 1px 0px rgb(255, 221, 0);
+  transition: all 1s ease-in-out;
+}
+.productDetail {
+  font-size: 1.2rem;
+  transition: all 1s ease-in-out;
+}
+.productImage {
+  width: 100%;
+  height: 100%;
+  background-color: #111212;
+  background-image: url("/assets/home/mobile/image-header.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: difference;
+  transition: all 500ms ease-in-out;
+}
+.productImage > img {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+}
+@media (min-width: 500px) {
+  .hero {
+    height: 65vh;
+  }
+  .productImage {
+    background-image: url("/assets/home/tablet/image-header.jpg");
+  }
+  .aboutProduct {
+    left: max(5rem, max(5rem, 35%));
+  }
+}
+@media (min-width: 760px) {
+  .hero {
+    height: 450px;
+  }
+  .productImage {
+    height: 440px;
+    background-position: bottom;
+    background-image: url("/assets/home/desktop/image-hero.jpg");
+  }
+  .aboutProduct {
+    padding-right: 1rem;
+    text-align: start;
+    left: 20%;
+  }
+}
