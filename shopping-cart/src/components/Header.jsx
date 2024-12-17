@@ -1,22 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import propTypes from "prop-types";
-function Header({ currentPage = "home", screenSize = 500 }) {
+import ProductNav from "./ProductNav";
+
+function Header({ deviceSize = window.innerWidth }) {
   const [show, setShow] = useState(false);
+
   function handleMobileMenu() {
     setShow(() => !show);
   }
+  const [screenSize, setScreenSize] = useState(deviceSize);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <header className={styles.header}>
+    <nav className={styles.header} aria-live="polite">
       {screenSize < 760 && (
         <section className={styles.navHolder}>
           {show ? (
-            <button
-              data-show={show}
-              onClick={handleMobileMenu}
-              aria-label="open-menu"
-            ></button>
+            <>
+              <button
+                data-show={show}
+                onClick={handleMobileMenu}
+                aria-label="open-menu"
+              ></button>
+            </>
           ) : (
             <button
               data-show={show}
@@ -24,7 +40,7 @@ function Header({ currentPage = "home", screenSize = 500 }) {
               aria-label="close-menu"
             ></button>
           )}
-          <Link to="/" className={styles.logo}>
+          <div to="/" className={styles.logo}>
             <span className={styles.letter}>a</span>
             <span className={styles.letter}>u</span>
             <span className={styles.letter}>d</span>
@@ -35,7 +51,7 @@ function Header({ currentPage = "home", screenSize = 500 }) {
             <span className={styles.letter}>i</span>
             <span className={styles.letter}>l</span>
             <span className={styles.letter}>e</span>
-          </Link>
+          </div>
           <button className={styles.cart}></button>{" "}
         </section>
       )}
@@ -62,36 +78,27 @@ function Header({ currentPage = "home", screenSize = 500 }) {
               {" "}
               speakers
             </Link>
-            <Link to="/headphones" className={styles.pageLink}>
+            <Link to="/headPhones" className={styles.pageLink}>
               headphones
             </Link>
-            <Link to="/speakers" className={styles.pageLink}>
-              earphones
+            <Link to="/earPhones" className={styles.pageLink}>
+              earPhones
             </Link>
           </nav>
-          <button className={styles.cart}></button>
         </section>
       )}
-      <Hero />
-    </header>
+
+      {show && screenSize < 760 && (
+        <ul className={`${styles.cardLinks} ${styles.flexRow}`}>
+          <ProductNav />
+        </ul>
+      )}
+    </nav>
   );
 }
-function Hero() {
-  return (
-    <section className={styles.hero} role="banner">
-      <div className={styles.productImage}></div>
-      <div className={styles.aboutProduct}>
-        <p>NEW PRODUCT</p>
-        <h1>xx99</h1>
-        <p className={styles.productDetail}>it is good product</p>
-        <button>see product</button>
-      </div>
-    </section>
-  );
-}
+
 Header.propTypes = {
-  screenSize: propTypes.number,
-  currentPage: propTypes.string,
+  deviceSize: propTypes.number,
 };
 
 export default Header;
