@@ -10,33 +10,48 @@ function isEven(num) {
 //component use to list product accept number to determine class name used
 // if it's even it use image left side and detail on right
 //other wise it reverse it and put image on right and detail on left
-function ListProducts({
-  productType = "headPhones",
-  productName = "xx",
-  num = 0,
-}) {
+function ListProducts({ productsData }) {
+  productsData.sort((a, b) => b.isNew - a.isNew);
+  if (productsData === undefined)
+    return <p>No headphones in stock right now.</p>;
   return (
-    <section
-      className={`${styles.productHolder} ${
-        isEven(num) ? styles["flexRow"] : styles["flexReverse"]
+    <ul className={styles.productsHolder}>
+      {productsData.map((product, i) => (
+        <ProductTemplate key={product.name} productObj={product} num={i} />
+      ))}
+    </ul>
+  );
+}
+function ProductTemplate({ productObj, num }) {
+  return (
+    <li
+      className={`${isEven(num) ? styles["flexRow"] : styles["flexReverse"]} ${
+        styles.productHolder
       }`}
     >
       <div className={styles.imageHolder}>
-        <img
-          src="/assets/product-xx99-mark-one-headphones/desktop/image-category-page-preview.jpg"
-          alt="name"
-          className={styles.productImage}
-        />
+        <picture>
+          <source
+            media="(min-width: 760 )"
+            srcSet={`${productObj.image.desktop}`}
+          />
+          <source
+            media="(min-width: 500 )"
+            srcSet={`${productObj.image.tablet}`}
+          />
+
+          <img
+            src={`${productObj.image.mobile}`}
+            alt={productObj.name}
+            className={styles.productImage}
+          />
+        </picture>
       </div>
-      <div className={`${styles.productDetailHolder} ${styles.flexColumn}`}>
-        <p className={styles.productNew}> NEW PRODUCT</p>
-        <h2 className={styles.productName}>XX99 MARK I HEADPHONES</h2>
-        <p className={styles.productDescription}>
-          As the gold standard for headphones, the classic XX99 Mark I offers
-          detailed and accurate audio reproduction for audiophiles, mixing
-          engineers, and music aficionados alike in studios and on the go.
-        </p>
-        <Link to={`/${productType}/${productName}`}>
+      <div className={`${styles.flexColumn} ${styles.productDetailHolder}`}>
+        {productObj.isNew && <p className={styles.productNew}> NEW PRODUCT</p>}
+        <h2 className={styles.productName}>{productObj.name}</h2>
+        <p className={styles.productDescription}>{productObj.description}</p>
+        <Link to={`/${productObj.category}/${productObj.slug}`}>
           <div className={styles.btnHolder}>
             <button className={styles.seeProductBtn}>
               <span>SEE PRODUCT</span>
@@ -44,13 +59,15 @@ function ListProducts({
           </div>
         </Link>
       </div>
-    </section>
+    </li>
   );
 }
 ListProducts.propTypes = {
+  productsData: propTypes.array,
+};
+ProductTemplate.propTypes = {
+  productObj: propTypes.object,
   num: propTypes.number,
-  productType: propTypes.string,
-  productName: propTypes.string,
 };
 
 export default ListProducts;
