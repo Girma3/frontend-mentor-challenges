@@ -1,0 +1,77 @@
+.modalHolder {
+  position: fixed;
+  top: 0;
+  background-color: rgb(255, 255, 255);
+  width: 300px;
+  height: 120px;
+  z-index: 10;
+  border-radius: 0.2rem;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 1px 0 5px rgb(0, 5, 98);
+}
+.cartMsg {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  letter-spacing: 2px;
+  word-wrap: break-word;
+  text-align: center;
+}
+.cartHolder {
+  position: relative;
+  padding: 1rem;
+  background-color: black;
+}
+.cart {
+  position: absolute;
+  top: 0;
+
+  width: 40px;
+  aspect-ratio: 1;
+
+  transform: translateX(0);
+  background-image: url("/assets/shared/icon-cart.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  animation: slideCart 12s ease-in-out infinite;
+  opacity: 0;
+}
+.slider {
+  position: absolute;
+  background-color: black;
+  bottom: -55%;
+  width: 94%;
+  left: -1%;
+
+  cursor: grabbing;
+}
+.slider:hover .cart {
+  animation: none;
+  background-color: green;
+  color: red;
+}
+@keyframes slideCart {
+  0% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(250px);
+  }
+}
+@media (min-width: 500px) {
+  .modalHolder {
+    left: 30%;
+  }
+}
