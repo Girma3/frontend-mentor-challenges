@@ -2,13 +2,23 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Cart.module.css";
 import CartStatus from "./CartStatus";
 import propTypes from "prop-types";
-function Cart({ products, stockProducts }) {
+/**
+ * component that return cart item selected by user
+ * productsData: array of products data holds images
+ * allCartProducts: array of product that is added to cart
+ * stockProducts : array of all products in stock
+ */
+function Cart({
+  productsData,
+  allCartProducts,
+  stockProducts,
+  onIncQuantity,
+  onDecQuantity,
+  onRemoveAll,
+}) {
   const [show, setShow] = useState(false);
   const modalRef = useRef(null);
-  function cartProducts() {
-    return products.filter((product) => product.addToCart === true);
-  }
-  let addedToCart = cartProducts();
+
   function handleShowStatus() {
     setShow((prevShow) => !prevShow);
   }
@@ -41,22 +51,36 @@ function Cart({ products, stockProducts }) {
           handleShowStatus();
         }}
       >
-        <p className={styles.itemsQuantity}>{addedToCart.length}</p>
+        <p className={styles.itemsQuantity}>{allCartProducts.length}</p>
       </button>
       {show && (
-        <dialog open ref={modalRef}>
-          <CartStatus
-            show={show}
-            allProducts={stockProducts}
-            cartProducts={addedToCart}
-          />
-        </dialog>
+        <>
+          <button className={styles.closeBtn}>x</button>
+          <dialog
+            open
+            ref={modalRef}
+            className={`${styles.flexColumn} ${styles.statusHolder}`}
+          >
+            <CartStatus
+              productsData={productsData}
+              allCartProducts={allCartProducts}
+              onIncQuantity={onIncQuantity}
+              onDecQuantity={onDecQuantity}
+              onRemoveAll={onRemoveAll}
+            />
+          </dialog>
+        </>
       )}
     </div>
   );
 }
 Cart.propTypes = {
-  products: propTypes.array,
+  productsData: propTypes.array,
+  stockProducts: propTypes.array,
+  allCartProducts: propTypes.array,
+  onIncQuantity: propTypes.func,
+  onDecQuantity: propTypes.func,
+  onRemoveAll: propTypes.func,
 };
 
 export default Cart;
