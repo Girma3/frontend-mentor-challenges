@@ -1,5 +1,12 @@
+.flexRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
 footer {
+  padding-inline: 2rem;
   background-color: black;
+  margin-top: 4rem;
 }
 .nav,
 .links,
@@ -13,7 +20,6 @@ footer {
   transition: all 1s ease;
 }
 .aboutCompany {
-  width: 60%;
   color: antiquewhite;
   letter-spacing: 2px;
   font-size: 1rem;
@@ -21,6 +27,7 @@ footer {
   line-height: 1.2rem;
   text-align: center;
   transition: all 2.5s ease;
+  padding-block: 1rem;
 }
 footer:before {
   content: "";
@@ -28,7 +35,24 @@ footer:before {
   height: 10px;
   background-color: rgb(197, 92, 0);
 }
+.socialMedia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 100%;
+}
+
 @media (min-width: 500px) {
+  .flexRow {
+    flex-wrap: nowrap;
+  }
+  .socialMedia {
+    width: 30%;
+    height: 200px;
+    align-items: flex-end;
+  }
+
   footer,
   .nav {
     align-items: start;
@@ -42,5 +66,27 @@ footer:before {
   .aboutCompany {
     text-align: justify;
     width: 90%;
+  }
+}
+@media (min-width: 760px) {
+  .nav {
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  .socialMedia {
+    align-items: center;
+  }
+  .aboutCompany {
+    width: 100%;
+  }
+  .companyParHolder {
+    padding: 1rem;
+    width: 50%;
+  }
+  .companyInfo {
+    justify-content: space-between;
   }
 }
