@@ -1,17 +1,18 @@
+import { Link } from "react-router-dom";
 import CircleGallery from "./CircleGallery";
 import styles from "./SeeProductGallery.module.css";
 function SeeProductGallery() {
   return (
-    <section>
+    <section className={styles.allProductHolder}>
       <CircleGallery />
       <section className={styles.speakerHolder}>
         <section className={styles.aboutSpeaker}>
           {" "}
           <h2 className={styles.speakerName}>ZX7 SPEAKER</h2>
           <div className={styles.btnHolder}>
-            <button className={styles.seeProductBtn}>
+            <Link to="/speakers/zx7-speaker" className={styles.seeProductBtn}>
               <span>SEE PRODUCT</span>
-            </button>
+            </Link>
           </div>
         </section>
       </section>
@@ -36,11 +37,14 @@ function SeeProductGallery() {
         </section>
         <section className={styles.aboutEarPhone}>
           {" "}
-          <h2 className={styles.earPhoneName}>ZX7 SPEAKER</h2>
+          <h2 className={styles.earPhoneName}>YX1 EARPHONES</h2>
           <div className={styles.btnHolder}>
-            <button className={styles.seeProductBtn}>
+            <Link
+              to="/earphones/yx1-earphones"
+              className={styles.seeProductBtn}
+            >
               <span>SEE PRODUCT</span>
-            </button>
+            </Link>
           </div>
         </section>
       </section>{" "}
