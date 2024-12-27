@@ -11,7 +11,6 @@ import propTypes from "prop-types";
 function Cart({
   productsData,
   allCartProducts,
-  stockProducts,
   onIncQuantity,
   onDecQuantity,
   onRemoveAll,
@@ -55,7 +54,9 @@ function Cart({
       </button>
       {show && (
         <>
-          <button className={styles.closeBtn}>x</button>
+          <button aria-label="close cart status" className={styles.closeBtn}>
+            x
+          </button>
           <dialog
             open
             ref={modalRef}
@@ -67,6 +68,7 @@ function Cart({
               onIncQuantity={onIncQuantity}
               onDecQuantity={onDecQuantity}
               onRemoveAll={onRemoveAll}
+              onCloseSelf={handleShowStatus}
             />
           </dialog>
         </>
@@ -76,7 +78,6 @@ function Cart({
 }
 Cart.propTypes = {
   productsData: propTypes.array,
-  stockProducts: propTypes.array,
   allCartProducts: propTypes.array,
   onIncQuantity: propTypes.func,
   onDecQuantity: propTypes.func,

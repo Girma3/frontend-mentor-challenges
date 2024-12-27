@@ -11,10 +11,12 @@ function CartStatus({
   onIncQuantity,
   onDecQuantity,
   onRemoveAll,
+  onCloseSelf,
 }) {
   const navigate = useNavigate();
   function handleCheckout() {
     navigate("/checkOut");
+    onCloseSelf();
   }
 
   let cartProductData = getProductData(productsData, allCartProducts);
@@ -35,9 +37,11 @@ function CartStatus({
       {!allCartProducts.length && (
         <>
           <h2>Your Cart is Empty.</h2>
-          <p>
+          <p className={styles.emptyCartMsg}>
             continue shopping on the <b>audiophile</b> website{" "}
-            <Link to="/">homepage</Link>{" "}
+            <Link to="/" className={styles.link} onClick={() => onCloseSelf()}>
+              homepage
+            </Link>{" "}
           </p>
         </>
       )}
@@ -47,6 +51,7 @@ function CartStatus({
             key={i}
             product={product}
             quantity={allCartProducts[i].demand}
+            inStock={allCartProducts[i].inStock}
             onDecQuantity={() => onDecQuantity(allCartProducts[i].productName)}
             onIncQuantity={() => onIncQuantity(allCartProducts[i].productName)}
             showButton={true}
@@ -65,7 +70,7 @@ function CartStatus({
           onClick={handleCheckout}
           disabled={allCartProducts.length ? false : true}
         >
-          CHECKOUT
+          <span> CHECKOUT</span>
         </button>
       </div>
     </>
@@ -77,5 +82,6 @@ CartStatus.propTypes = {
   onIncQuantity: propTypes.func,
   onDecQuantity: propTypes.func,
   onRemoveAll: propTypes.func,
+  onCloseSelf: propTypes.func,
 };
 export default CartStatus;
