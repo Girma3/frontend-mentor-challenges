@@ -2,7 +2,11 @@ import propTypes from "prop-types";
 import styles from "./Hero.module.css";
 import { Link } from "react-router-dom";
 import ProductNav from "./ProductNav";
-function Hero({ currentPage = "Home", mobileNav = false }) {
+function Hero({ currentPage = "Home", mobileNav = false, onCloseSelf }) {
+  //hide page name on product detail and checkout page
+  let hide =
+    currentPage === "checkout" || currentPage === "product" ? "none" : "";
+
   return (
     <>
       {currentPage === "Home" && (
@@ -25,16 +29,18 @@ function Hero({ currentPage = "Home", mobileNav = false }) {
               </Link>
             </div>
           </section>
-          {mobileNav && (
-            <nav className={styles.mobileNav}>
-              <ProductNav className={styles.flexRow} />
-            </nav>
-          )}
         </>
       )}
 
       {currentPage !== "Home" && (
-        <h1 className={styles.currentPage}>{currentPage}</h1>
+        <h1 className={styles.currentPage} style={{ display: hide }}>
+          {currentPage}
+        </h1>
+      )}
+      {mobileNav && (
+        <nav className={styles.mobileNav}>
+          <ProductNav className={styles.flexRow} onCloseSelf={onCloseSelf} />
+        </nav>
       )}
     </>
   );
@@ -42,5 +48,6 @@ function Hero({ currentPage = "Home", mobileNav = false }) {
 Hero.propTypes = {
   currentPage: propTypes.string,
   mobileNav: propTypes.bool,
+  onCloseSelf: propTypes.func,
 };
 export default Hero;
