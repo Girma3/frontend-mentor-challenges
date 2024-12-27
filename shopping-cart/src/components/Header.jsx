@@ -25,7 +25,7 @@ function Header({
               aria-label="close-menu"
             ></button>
           )}
-          <div to="/" className={styles.logo}>
+          <Link to="/" className={styles.logo}>
             <span className={styles.letter}>a</span>
             <span className={styles.letter}>u</span>
             <span className={styles.letter}>d</span>
@@ -36,7 +36,7 @@ function Header({
             <span className={styles.letter}>i</span>
             <span className={styles.letter}>l</span>
             <span className={styles.letter}>e</span>
-          </div>
+          </Link>
         </section>
       )}
 
