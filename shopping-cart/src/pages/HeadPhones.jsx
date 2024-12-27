@@ -1,30 +1,29 @@
+import ListProducts from "../components/ListProducts";
 import ProductNav from "../components/ProductNav";
-import SeeProductGallery from "../components/SeeProductGallery";
+import propTypes from "prop-types";
 import AboutCompany from "../components/AboutCompany";
 import Hero from "../components/Hero";
-import propTypes from "prop-types";
 
-function Home({ showMobileMenu, onCloseMobileNav }) {
+function HeadPhones({ productsData, showMobileMenu, onCloseMobileNav }) {
   return (
     <>
       <Hero
-        currentPage={"Home"}
+        currentPage={"HEADPHONES"}
         mobileNav={showMobileMenu}
         onCloseSelf={onCloseMobileNav}
       />
       <main>
-        <nav>
-          {" "}
-          <ProductNav />
-        </nav>
-        <SeeProductGallery />
+        <ListProducts productsData={productsData} />
+        <ProductNav />
         <AboutCompany />
       </main>
     </>
   );
 }
-Home.propTypes = {
+HeadPhones.propTypes = {
+  productsData: propTypes.array,
   showMobileMenu: propTypes.bool,
   onCloseMobileNav: propTypes.func,
 };
-export default Home;
+
+export default HeadPhones;

@@ -1,30 +1,30 @@
+import ListProducts from "../components/ListProducts";
 import ProductNav from "../components/ProductNav";
-import SeeProductGallery from "../components/SeeProductGallery";
-import AboutCompany from "../components/AboutCompany";
-import Hero from "../components/Hero";
 import propTypes from "prop-types";
 
-function Home({ showMobileMenu, onCloseMobileNav }) {
+import AboutCompany from "../components/AboutCompany";
+import Hero from "../components/Hero";
+
+function EarPhones({ productsData, showMobileMenu, onCloseMobileNav }) {
   return (
     <>
       <Hero
-        currentPage={"Home"}
+        currentPage={"EARPHONES"}
         mobileNav={showMobileMenu}
         onCloseSelf={onCloseMobileNav}
       />
       <main>
-        <nav>
-          {" "}
-          <ProductNav />
-        </nav>
-        <SeeProductGallery />
+        <ListProducts productsData={productsData} />
+        <ProductNav />
         <AboutCompany />
       </main>
     </>
   );
 }
-Home.propTypes = {
+EarPhones.propTypes = {
+  productsData: propTypes.array,
   showMobileMenu: propTypes.bool,
   onCloseMobileNav: propTypes.func,
 };
-export default Home;
+
+export default EarPhones;
