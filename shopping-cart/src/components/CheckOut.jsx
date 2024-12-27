@@ -7,13 +7,19 @@ import {
 } from "../utilityFunctions";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import propTypes from "prop-types";
+import Hero from "./Hero";
 
+const VAT = 0.2;
+const SHIPPING_PRICE = 50;
 function CheckOut({
   customer,
   handleInputChange,
   allProducts,
   allCartProducts,
   onConfirm,
+  showMobileMenu,
+  onCloseMobileNav,
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
   let navigate = useNavigate();
@@ -32,215 +38,225 @@ function CheckOut({
   let total = calculateTotalPrice(allCartProducts);
 
   return (
-    <main>
-      <button onClick={handleBack}>Go Back</button>
-      <section className={`${styles.formHolder}`}>
-        <form className={styles.flexRow}>
-          <section className={styles.formInputHolder}>
-            <h1 className={styles.title}>CHECKOUT</h1>
-            <div className={styles.flexColumn}>
-              <h2 className={styles.paymentType}>BILLING DETAILS</h2>
-              <div className={styles.flexRow}>
-                <label htmlFor="customerName" className={styles.flexColumn}>
-                  Name
-                  <input
-                    type="text"
-                    id="customerName"
-                    name="customerName"
-                    minLength={2}
-                    maxLength={50}
-                    value={customer.customerName}
-                    onChange={(e) => handleInputChange(e)}
-                    autoComplete="true"
-                    required
-                  />
-                </label>
+    <>
+      <Hero
+        currentPage="checkout"
+        mobileNav={showMobileMenu}
+        onCloseSelf={onCloseMobileNav}
+      />
+      <main className={styles.checkoutHolder}>
+        <button className={styles.backBtn} onClick={handleBack}>
+          Go Back
+        </button>
+        <section className={`${styles.formHolder}`}>
+          <form className={styles.flexRow}>
+            <section className={styles.formInputHolder}>
+              <h1 className={styles.title}>CHECKOUT</h1>
+              <div className={styles.flexColumn}>
+                <h2 className={styles.paymentType}>BILLING DETAILS</h2>
+                <div className={styles.flexRow}>
+                  <label htmlFor="customerName" className={styles.flexColumn}>
+                    Name
+                    <input
+                      type="text"
+                      id="customerName"
+                      name="customerName"
+                      minLength={2}
+                      maxLength={50}
+                      value={customer.customerName}
+                      onChange={(e) => handleInputChange(e)}
+                      autoComplete="true"
+                      required
+                    />
+                  </label>
 
-                <label htmlFor="email" className={styles.flexColumn}>
-                  Email Address
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={customer.email}
-                    onChange={(e) => handleInputChange(e)}
-                    autoComplete="true"
-                    required
-                  />
-                </label>
-              </div>
+                  <label htmlFor="email" className={styles.flexColumn}>
+                    Email Address
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={customer.email}
+                      onChange={(e) => handleInputChange(e)}
+                      autoComplete="true"
+                      required
+                    />
+                  </label>
+                </div>
 
-              <label htmlFor="phoneNumber" className={styles.flexColumn}>
-                Phone Number
-                <input
-                  type="number"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  min={5}
-                  value={customer.phoneNumber}
-                  onChange={(e) => handleInputChange(e)}
-                  required
-                />
-              </label>
-            </div>
-            <div>
-              <h2 className={styles.paymentType}>SHIPPING INFO</h2>
-              <label htmlFor="address" className={styles.flexColumn}>
-                Address
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  minLength={3}
-                  value={customer.address}
-                  onChange={(e) => handleInputChange(e)}
-                  autoComplete="true"
-                  required
-                />
-              </label>
-              <div className={styles.flexRow}>
-                <label htmlFor="zipCode" className={styles.flexColumn}>
-                  ZIP Code
+                <label htmlFor="phoneNumber" className={styles.flexColumn}>
+                  Phone Number
                   <input
                     type="number"
-                    id="zipCode"
-                    name="zipCode"
-                    min={4}
-                    value={customer.zipCode}
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    min={5}
+                    value={customer.phoneNumber}
                     onChange={(e) => handleInputChange(e)}
                     required
                   />
                 </label>
-
-                <label htmlFor="city" className={styles.flexColumn}>
-                  City
+              </div>
+              <div>
+                <h2 className={styles.paymentType}>SHIPPING INFO</h2>
+                <label htmlFor="address" className={styles.flexColumn}>
+                  Address
                   <input
                     type="text"
-                    id="city"
-                    name="city"
+                    id="address"
+                    name="address"
                     minLength={3}
-                    value={customer.city}
+                    value={customer.address}
+                    onChange={(e) => handleInputChange(e)}
+                    autoComplete="true"
+                    required
+                  />
+                </label>
+                <div className={styles.flexRow}>
+                  <label htmlFor="zipCode" className={styles.flexColumn}>
+                    ZIP Code
+                    <input
+                      type="number"
+                      id="zipCode"
+                      name="zipCode"
+                      min={4}
+                      value={customer.zipCode}
+                      onChange={(e) => handleInputChange(e)}
+                      required
+                    />
+                  </label>
+
+                  <label htmlFor="city" className={styles.flexColumn}>
+                    City
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      minLength={3}
+                      value={customer.city}
+                      onChange={(e) => handleInputChange(e)}
+                      autoComplete="true"
+                      required
+                    />
+                  </label>
+                </div>
+
+                <label htmlFor="country" className={styles.flexColumn}>
+                  Country
+                  <input
+                    type="text"
+                    id="country"
+                    name="country"
+                    minLength={4}
+                    value={customer.country}
                     onChange={(e) => handleInputChange(e)}
                     autoComplete="true"
                     required
                   />
                 </label>
               </div>
-
-              <label htmlFor="country" className={styles.flexColumn}>
-                Country
-                <input
-                  type="text"
-                  id="country"
-                  name="country"
-                  minLength={4}
-                  value={customer.country}
-                  onChange={(e) => handleInputChange(e)}
-                  autoComplete="true"
-                  required
-                />
-              </label>
-            </div>
-            <div>
-              <h2 className={styles.paymentType}>PAYMENT DETAILS</h2>
               <div>
-                <div className={`${styles.flexRow} ${styles.paymentHolder}`}>
-                  <h2 className={styles.paymentMethod}>Payment Method</h2>
-                  <div className={styles.flexColumn}>
-                    <label htmlFor="eMoney" className={styles.radioLabel}>
-                      <input
-                        type="checkbox"
-                        name="eMoney"
-                        id="eMoney"
-                        checked={customer.eMoney}
-                        onChange={(e) => handleInputChange(e)}
-                      />
-                      e-Money
-                    </label>
+                <h2 className={styles.paymentType}>PAYMENT DETAILS</h2>
+                <div>
+                  <div className={`${styles.flexRow} ${styles.paymentHolder}`}>
+                    <h2 className={styles.paymentMethod}>Payment Method</h2>
+                    <div className={styles.flexColumn}>
+                      <label htmlFor="eMoney" className={styles.radioLabel}>
+                        <input
+                          type="checkbox"
+                          name="eMoney"
+                          id="eMoney"
+                          checked={customer.eMoney}
+                          onChange={(e) => handleInputChange(e)}
+                        />
+                        e-Money
+                      </label>
 
-                    <label htmlFor="cash" className={styles.radioLabel}>
-                      <input
-                        type="checkbox"
-                        name="cash"
-                        id="cash"
-                        checked={customer.cash}
-                        onChange={(e) => handleInputChange(e)}
-                      />
-                      Cash on Delivery
-                    </label>
+                      <label htmlFor="cash" className={styles.radioLabel}>
+                        <input
+                          type="checkbox"
+                          name="cash"
+                          id="cash"
+                          checked={customer.cash}
+                          onChange={(e) => handleInputChange(e)}
+                        />
+                        Cash on Delivery
+                      </label>
+                    </div>
                   </div>
+                  {customer.eMoney && (
+                    <div className={`${styles.flexRow} ${styles.eMoneyHolder}`}>
+                      <label
+                        htmlFor="eMoneyNumber"
+                        className={styles.flexColumn}
+                      >
+                        e-Money Number
+                        <input
+                          type="number"
+                          name="eMoneyNumber"
+                          id="eMoneyNumber"
+                          min={2}
+                          value={customer.eMonyNumber}
+                          onChange={(e) => handleInputChange(e)}
+                          required
+                        />
+                      </label>
+
+                      <label htmlFor="pin" className={styles.flexColumn}>
+                        e-Money PIN
+                        <input
+                          type="number"
+                          name="pin"
+                          id="pin"
+                          min={2}
+                          value={customer.pin}
+                          onChange={(e) => handleInputChange(e)}
+                          required
+                        />
+                      </label>
+                    </div>
+                  )}
+                  {customer.cash ? (
+                    <div className={styles.cashPay}>
+                      <img
+                        src="/assets/checkout/icon-cash-on-delivery.svg"
+                        alt="pay in cash"
+                      />
+                      <p className={styles.cashDeliver}>
+                        The Cash on Delivery option enables you to pay in cash
+                        when our delivery courier arrives at your residence.
+                        Just make sure your address is correct so that your
+                        order will not be cancelled.
+                      </p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
-                {customer.eMoney && (
-                  <div className={`${styles.flexRow} ${styles.eMoneyHolder}`}>
-                    <label htmlFor="eMoneyNumber" className={styles.flexColumn}>
-                      e-Money Number
-                      <input
-                        type="number"
-                        name="eMoneyNumber"
-                        id="eMoneyNumber"
-                        min={2}
-                        value={customer.eMonyNumber}
-                        onChange={(e) => handleInputChange(e)}
-                        required
-                      />
-                    </label>
-
-                    <label htmlFor="pin" className={styles.flexColumn}>
-                      e-Money PIN
-                      <input
-                        type="number"
-                        name="pin"
-                        id="pin"
-                        min={2}
-                        value={customer.pin}
-                        onChange={(e) => handleInputChange(e)}
-                        required
-                      />
-                    </label>
-                  </div>
-                )}
-                {customer.cash ? (
-                  <div className={styles.cashPay}>
-                    <img
-                      src="/assets/checkout/icon-cash-on-delivery.svg"
-                      alt="pay in cash"
-                    />
-                    <p className={styles.cashDeliver}>
-                      The Cash on Delivery option enables you to pay in cash
-                      when our delivery courier arrives at your residence. Just
-                      make sure your address is correct so that your order will
-                      not be cancelled.
-                    </p>
-                  </div>
-                ) : (
-                  ""
-                )}
               </div>
-            </div>
-          </section>
-          <Summary
-            allProducts={allProducts}
-            allCartProducts={allCartProducts}
-            handleSubmit={onSubmit}
-          />
-        </form>
-        {showConfirm && (
-          <div className={styles.modalHolder}>
-            <ConfirmOrderMessage
+            </section>
+            <Summary
+              allProducts={allProducts}
               allCartProducts={allCartProducts}
-              cartProductData={allProducts}
-              total={total}
-              onConfirm={onConfirm}
+              handleSubmit={onSubmit}
             />
-          </div>
-        )}
-      </section>
-    </main>
+          </form>
+          {showConfirm && (
+            <div className={styles.modalHolder}>
+              <ConfirmOrderMessage
+                allCartProducts={allCartProducts}
+                cartProductData={allProducts}
+                total={total}
+                onConfirm={onConfirm}
+              />
+            </div>
+          )}
+        </section>
+      </main>
+    </>
   );
 }
 function Summary({ allProducts, allCartProducts, handleSubmit }) {
-  const VAT = 0.2;
-  const SHIPPING_PRICE = 50;
   let totalPrice = calculateTotalPrice(allCartProducts);
   let priceWithVat = (totalPrice * VAT).toFixed();
   let grandTotal = (totalPrice + SHIPPING_PRICE).toFixed();
@@ -355,5 +371,24 @@ function ConfirmOrderMessage({
     </dialog>
   );
 }
-
+CheckOut.propTypes = {
+  customer: propTypes.object,
+  allProducts: propTypes.array,
+  allCartProducts: propTypes.array,
+  handleInputChange: propTypes.func,
+  onConfirm: propTypes.func,
+  showMobileMenu: propTypes.bool,
+  onCloseMobileNav: propTypes.func,
+};
+Summary.propTypes = {
+  allProducts: propTypes.array,
+  allCartProducts: propTypes.array,
+  handleSubmit: propTypes.func,
+};
+ConfirmOrderMessage.propTypes = {
+  allCartProducts: propTypes.array,
+  cartProductData: propTypes.array,
+  total: propTypes.number,
+  onConfirm: propTypes.func,
+};
 export default CheckOut;
