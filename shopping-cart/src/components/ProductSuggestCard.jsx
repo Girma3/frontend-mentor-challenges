@@ -23,7 +23,7 @@ function ProductSuggestCard({ suggestedProduct, category }) {
           />
         </picture>
       </div>
-      <h2>{suggestedProduct.name}</h2>
+      <h2 className={styles.productName}>{suggestedProduct.name}</h2>
       <div className={styles.btnHolder}>
         <Link
           to={`/${category}/${suggestedProduct.slug}`}
