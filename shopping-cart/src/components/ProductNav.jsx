@@ -1,5 +1,5 @@
 import CardLink from "./CardLink";
-import styles from "./ProductNav.module.css";
+import propTypes from "prop-types";
 const links = [
   {
     linkName: "headPhones",
@@ -20,7 +20,7 @@ const links = [
     slug: "yx1-earphones",
   },
 ];
-function ProductNav({ className = "productsCardNav" }) {
+function ProductNav({ className = "productsCardNav", onCloseSelf }) {
   return (
     <ul className={className}>
       {links.map((link) => (
@@ -29,10 +29,14 @@ function ProductNav({ className = "productsCardNav" }) {
           linkName={link.linkName}
           productImage={link.productImage}
           product={link.slug}
+          onCloseSelf={onCloseSelf}
         />
       ))}
     </ul>
   );
 }
-
+ProductNav.propTypes = {
+  className: propTypes.string,
+  onCloseSelf: propTypes.func,
+};
 export default ProductNav;
