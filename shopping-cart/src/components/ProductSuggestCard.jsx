@@ -1,6 +1,7 @@
 import styles from "./ProductSuggestCard.module.css";
 import { Link } from "react-router-dom";
 import propTypes from "prop-types";
+import { scrollTop } from "../utilityFunctions";
 
 function ProductSuggestCard({ suggestedProduct, category }) {
   return (
@@ -27,6 +28,7 @@ function ProductSuggestCard({ suggestedProduct, category }) {
       <div className={styles.btnHolder}>
         <Link
           to={`/${category}/${suggestedProduct.slug}`}
+          onClick={() => scrollTop()}
           className={styles.seeProductBtn}
         >
           <span>SEE PRODUCT</span>

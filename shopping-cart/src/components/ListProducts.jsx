@@ -1,6 +1,7 @@
 import styles from "./ListProducts.module.css";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { scrollTop } from "../utilityFunctions";
 function isEven(num) {
   if (num % 2 === 0) return true;
   else {
@@ -51,9 +52,21 @@ function ProductTemplate({ productObj, num }) {
         {productObj.isNew && <p className={styles.productNew}> NEW PRODUCT</p>}
         <h2 className={styles.productName}>{productObj.name}</h2>
         <p className={styles.productDescription}>{productObj.description}</p>
-        <Link to={`/${productObj.category}/${productObj.slug}`}>
+        <Link
+          to={`/${productObj.category}/${productObj.slug}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            scrollTop();
+          }}
+        >
           <div className={styles.btnHolder}>
-            <button className={styles.seeProductBtn}>
+            <button
+              className={styles.seeProductBtn}
+              onClick={(e) => {
+                e.stopPropagation();
+                scrollTop();
+              }}
+            >
               <span>SEE PRODUCT</span>
             </button>
           </div>

@@ -3,6 +3,7 @@ import CartItem from "./CartItem";
 import {
   calculateTotalPrice,
   getProductData,
+  scrollTop,
   validateForm,
 } from "../utilityFunctions";
 import { useState } from "react";
@@ -26,13 +27,19 @@ function CheckOut({
   function handleBack() {
     navigate("/");
   }
-  function onSubmit(e) {
+  function handleForSubmit(e) {
     e.preventDefault();
-    let m = validateForm(customer);
-    console.log(m);
-    if (validateForm(customer)) {
+    let isFormEmpty = validateForm(customer);
+    if (
+      isFormEmpty[0].key === "eMoneyNumber" &&
+      isFormEmpty[1].key === "pin" &&
+      isFormEmpty.length === 2
+    ) {
       setShowConfirm(() => true);
-      console.log("hey");
+    }
+
+    if (!isFormEmpty.length) {
+      setShowConfirm(() => true);
     }
   }
   let total = calculateTotalPrice(allCartProducts);
@@ -49,7 +56,7 @@ function CheckOut({
           Go Back
         </button>
         <section className={`${styles.formHolder}`}>
-          <form className={styles.flexRow}>
+          <form className={styles.flexRow} onSubmit={(e) => handleForSubmit(e)}>
             <section className={styles.formInputHolder}>
               <h1 className={styles.title}>CHECKOUT</h1>
               <div className={styles.flexColumn}>
@@ -238,7 +245,7 @@ function CheckOut({
             <Summary
               allProducts={allProducts}
               allCartProducts={allCartProducts}
-              handleSubmit={onSubmit}
+              handleSubmit={handleForSubmit}
             />
           </form>
           {showConfirm && (
@@ -296,6 +303,7 @@ function Summary({ allProducts, allCartProducts, handleSubmit }) {
         <button
           type="submit"
           onSubmit={(e) => handleSubmit(e)}
+          onClick={() => scrollTop()}
           className={styles.payBtn}
         >
           CONTINUE & PAY
@@ -310,16 +318,22 @@ function ConfirmOrderMessage({
   total,
   onConfirm,
 }) {
-  let firstItemAddedName = allCartProducts[0].productName;
-  let firstItemAdded = cartProductData.filter(
-    (product) => product.slug === firstItemAddedName
-  );
-  let cartProductsLength = allCartProducts.length;
   let navigate = useNavigate();
   function handleBackHome() {
     navigate("/");
     onConfirm();
   }
+  //when reset on confirm return
+  if (!allCartProducts.length) {
+    return;
+  }
+
+  let firstItemAddedName = allCartProducts[0].productName;
+  let firstItemAdded = cartProductData.filter(
+    (product) => product.slug === firstItemAddedName
+  );
+  let cartProductsLength = allCartProducts.length;
+
   return (
     <dialog open className={`${styles.flexColumn} ${styles.confirmModal} `}>
       <div className={styles.flexColumn}>
