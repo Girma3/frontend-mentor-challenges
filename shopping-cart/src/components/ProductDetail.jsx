@@ -54,7 +54,7 @@ function ProductDetail({
       />{" "}
       <main>
         <section>
-          <button className={styles.backBtn} onClick={handleBackBtn}>
+          <button className={styles.backBtn} onClick={() => handleBackBtn()}>
             Go Back
           </button>
           <section className={styles.flexRow}>
@@ -80,7 +80,7 @@ function ProductDetail({
               {product.isNew && (
                 <h2 className={styles.productNew}>NEW PRODUCT</h2>
               )}
-              <h2 className={styles.productNAme}>{name}</h2>
+              <h2 className={styles.productName}>{name}</h2>
               <p className={styles.productDescription}>{product.description}</p>
               <p className={styles.price}>$ 5678</p>
 
@@ -137,19 +137,22 @@ function ProductDetail({
             </div>
           </section>
           <section className={`${styles.flexRow} ${styles.featHolder}`}>
-            <article className={styles.flexColumn}>
-              <h2>FEATURES</h2>
+            <article className={`${styles.flexColumn} ${styles.feat}`}>
+              <h2 className={styles.title}>FEATURES</h2>
               <p className={`${styles.productFeat}`}>{part1}</p>
               <p className={`${styles.productFeat}`}>{part2}</p>
             </article>
             <div className={`${styles.flexColumn} ${styles.inBox}`}>
-              <h2>IN THE BOX</h2>
+              <h2 className={styles.title}>IN THE BOX</h2>
               <ul>
                 {product.includes.map((items, i) => (
                   <li key={i}>
                     <p>
-                      <span> {items.quantity}x</span>
-                      <span>{items.item}</span>
+                      <span className={styles.quantity}>
+                        {" "}
+                        {items.quantity}x
+                      </span>
+                      <span className={styles.itemNum}>{items.item}</span>
                     </p>
                   </li>
                 ))}

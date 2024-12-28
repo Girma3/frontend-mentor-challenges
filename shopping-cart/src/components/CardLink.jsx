@@ -1,27 +1,42 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./CardLink.module.css";
 import propTypes from "prop-types";
+import { scrollTop } from "../utilityFunctions";
 function CardLink({
   linkName = "earphones",
   productImage = "/assets/shared/image-category-thumbnail-earphones.png",
   product = "yx1-earphones",
-  onCloseSelf
+  onCloseSelf,
 }) {
   const navigate = useNavigate();
 
-  function handleRedirectPage() {
+  function handleRedirectPage(e) {
+    e.stopPropagation();
     navigate(`/${linkName}`);
-    onCloseSelf()
+    if (onCloseSelf) {
+      onCloseSelf();
+    }
+    scrollTop();
   }
   return (
-    <button className={styles.linkButton} onClick={handleRedirectPage}>
+    <button
+      className={styles.linkButton}
+      onClick={(e) => handleRedirectPage(e)}
+    >
       <li className={styles.card}>
         <div className={styles.productLinkImage}>
           <img src={`${productImage}`} alt={product} />
         </div>
         <div className={styles.linkHolder}>
           <h2 className={styles.productName}>{linkName}</h2>
-          <Link to={`/${linkName}/${product}`} className={styles.link}>
+          <Link
+            to={`/${linkName}/${product}`}
+            className={styles.link}
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollTop();
+            }}
+          >
             <span>SHOP</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +58,7 @@ CardLink.propTypes = {
   productImage: propTypes.string,
   productImageAlt: propTypes.string,
   product: propTypes.string,
-  onCloseSelf:propTypes.func
+  onCloseSelf: propTypes.func,
 };
 
 export default CardLink;

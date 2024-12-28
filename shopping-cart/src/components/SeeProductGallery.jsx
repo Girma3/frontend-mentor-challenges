@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import CircleGallery from "./CircleGallery";
 import styles from "./SeeProductGallery.module.css";
+import { scrollTop } from "../utilityFunctions";
 function SeeProductGallery() {
   return (
     <section className={styles.allProductHolder}>
@@ -10,7 +11,11 @@ function SeeProductGallery() {
           {" "}
           <h2 className={styles.speakerName}>ZX7 SPEAKER</h2>
           <div className={styles.btnHolder}>
-            <Link to="/speakers/zx7-speaker" className={styles.seeProductBtn}>
+            <Link
+              to="/speakers/zx7-speaker"
+              className={styles.seeProductBtn}
+              onClick={() => scrollTop()}
+            >
               <span>SEE PRODUCT</span>
             </Link>
           </div>
@@ -42,6 +47,7 @@ function SeeProductGallery() {
             <Link
               to="/earphones/yx1-earphones"
               className={styles.seeProductBtn}
+              onClick={() => scrollTop()}
             >
               <span>SEE PRODUCT</span>
             </Link>

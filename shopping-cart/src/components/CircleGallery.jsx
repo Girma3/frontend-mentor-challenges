@@ -1,5 +1,6 @@
+import { scrollTop } from "../utilityFunctions";
 import styles from "./CircleGallery.module.css";
-
+import { Link } from "react-router-dom";
 function CircleGallery() {
   return (
     <section className={styles.flexColumn}>
@@ -26,15 +27,19 @@ function CircleGallery() {
         </picture>
         <div className={styles.soundWave}></div>
         <div className={styles.info}>
-          <h2>ZX9 SPEAKER</h2>
+          <h2 className={styles.productName}>ZX9 SPEAKER</h2>
           <p className={styles.aboutZx9Speaker}>
             Upgrade to premium speakers that are phenomenally built to deliver
             truly remarkable sound.
           </p>
           <div className={styles.btnHolder}>
-            <button className={styles.seeProductBtn}>
+            <Link
+              to="/speakers/zx9-speaker"
+              className={styles.seeProductBtn}
+              onClick={() => scrollTop()}
+            >
               <span>SEE PRODUCT</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
