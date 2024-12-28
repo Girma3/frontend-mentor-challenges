@@ -1,8 +1,10 @@
 import styles from "./CartItem.module.css";
 import { adjustName } from "../utilityFunctions";
+import propTypes from "prop-types";
 function CartItem({
   product,
   quantity = 2,
+  inStock,
   showButton = true,
   onIncQuantity,
   onDecQuantity,
@@ -26,10 +28,21 @@ function CartItem({
           <button className={styles.incBtn} onClick={onIncQuantity}>
             +
           </button>
+          {inStock <= quantity && (
+            <span className={styles.msgMax}>max value in stock {inStock}</span>
+          )}
         </div>
       )}
       {!showButton && <h3 className={styles.quantity}>x{quantity}</h3>}
     </li>
   );
 }
+CartItem.propTypes = {
+  product: propTypes.object,
+  quantity: propTypes.number,
+  inStock: propTypes.number,
+  onIncQuantity: propTypes.func,
+  onDecQuantity: propTypes.func,
+  showButton: propTypes.bool,
+};
 export default CartItem;
