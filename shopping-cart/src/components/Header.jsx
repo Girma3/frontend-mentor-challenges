@@ -57,17 +57,17 @@ function Header({
           <nav className={styles.links}>
             {" "}
             <Link to="/" className={styles.pageLink}>
-              Home
+              HOME
             </Link>
             <Link to="/speakers" className={styles.pageLink}>
               {" "}
-              speakers
+              SPEAKERS
             </Link>
             <Link to="/headPhones" className={styles.pageLink}>
-              headphones
+              HEADPHONES
             </Link>
             <Link to="/earPhones" className={styles.pageLink}>
-              earPhones
+              EARPHONES
             </Link>
           </nav>
         </section>
