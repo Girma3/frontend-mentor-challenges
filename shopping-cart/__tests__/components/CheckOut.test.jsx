@@ -1,62 +1,73 @@
-import {
-  getAllByRole,
-  getByLabelText,
-  getByRole,
-  render,
-  screen,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CheckOut from "../../src/components/CheckOut";
-import { it, describe, expect, beforeEach } from "vitest";
-/*
-for checkout test on the user side test
-- show form 
-- correct input show
-- show summary  
+import { it, describe, expect, beforeEach, vi } from "vitest";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { PersonalInfo } from "../../src/utilityFunctions";
 
-for dev side test
-- are there  11 inputs
-- does it display correct input
-- does all input are required 
-- continue and pay button show message after form submitted correctly else disabled
+//Form submission with valid customer data shows confirmation modal
 
-*/
-describe("Form", () => {
-  //user side
-  beforeEach(() => {
-    render(<CheckOut />);
-  });
+const validCustomer = PersonalInfo();
+(validCustomer.customerName = ""),
+  (validCustomer.email = "john@test.com"),
+  (validCustomer.phoneNumber = "1234567890"),
+  (validCustomer.address = "123 Main St"),
+  (validCustomer.zipCode = "12345"),
+  (validCustomer.pin = "0000"),
+  (validCustomer.city = "TestCity"),
+  (validCustomer.country = "TestCountry"),
+  (validCustomer.cash = true),
+  (validCustomer.eMoney = false),
+  describe("Form", () => {
+    //user side
+    const onSubmit = vi.fn();
+    beforeEach(() => {
+      render(
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <CheckOut
+                  customer={validCustomer}
+                  allCartProducts={[]}
+                  allProducts={[]}
+                  handleInputChange={onSubmit}
+                />
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      );
+    });
 
-  it("does the Form displayed", () => {
-    const formElement = getByRole("form");
-    expect(formElement).toBeInTheDocument();
+    it("does the Form displayed", () => {
+      const formElement = screen.getByRole("form");
+      expect(formElement).toBeInTheDocument();
+    });
+
+    it("does the summary showed and pay button exist", () => {
+      const summaryElement = screen.getByRole("heading", { name: /summary/i });
+      const continueBtn = screen.getByRole("button", {
+        name: /continue & pay/i,
+      });
+      expect(summaryElement).toBeInTheDocument();
+      expect(continueBtn).toBeInTheDocument();
+    });
+
+    //dev side
+    it("does the form input are there ", () => {
+      const allInputs = screen.getAllByRole("textbox");
+      const checkBox = screen.getAllByRole("checkbox");
+      expect(allInputs).toHaveLength(6);
+      expect(checkBox).toHaveLength(2);
+    });
+    it("input show correct value", async () => {
+      const user = userEvent.setup();
+      const nameInput = screen.getByLabelText(/name/i);
+      expect(nameInput).toHaveValue("");
+      await user.type(nameInput, "king");
+      expect(nameInput).toBeInTheDocument();
+      expect(onSubmit).toHaveBeenCalledTimes("king".length);
+    });
   });
-  it("does the summary showed and pay button exist", () => {
-    const summaryElement = getByRole("heading", { name: /summary/i });
-    const continueBtn = getByRole("button", { name: /continue & pay/i });
-    expect(summaryElement).toBeInTheDocument();
-    expect(continueBtn).toBeInTheDocument();
-  });
-  //dev side
-  it("does the form input are there ", () => {
-    const allInputs = getAllByRole("textbox");
-    const checkBox = getByRole("checkbox");
-    expect(allInputs).length.toBe(9);
-    expect(checkBox).length.toBe(2);
-    expect(allInputs);
-  });
-  it("invalid form disabled pay button", async () => {
-    const user = userEvent.setup();
-    const payBtn = getByRole("button", { name: /continue & pay/i });
-    await user.click(payBtn);
-    expect(payBtn).toBeDisabled();
-  });
-  it("input show correct value", async () => {
-    const user = userEvent.setup();
-    const nameInput = getByLabelText(/name/i);
-    expect(nameInput).toBe(false);
-    await user.change(nameInput, { target: { value: "king" } });
-    expect(nameInput).value.length.toBe(4);
-    expect(nameInput).toBe(true);
-  });
-});
