@@ -87,6 +87,7 @@ function ProductDetail({
               <div className={`${styles.flexRow} ${styles.btnHolder}`}>
                 <div className={`${styles.flexRow} ${styles.quantityHolder}`}>
                   <button
+                    aria-label="decrease-product-quantity"
                     className={styles.decBtn}
                     onClick={() => onDecProductQuantity(name)}
                   >
@@ -108,12 +109,13 @@ function ProductDetail({
                     id="productDemand"
                     max={Number(selectedProduct.inStock)}
                     value={Number(selectedProduct.demand)}
-                    aria-label="product demand quantity"
+                    aria-label="product-demand-quantity"
                     className={styles.productQuantity}
                     onChange={(e) => onQuantityInput(e, name)}
                   />
 
                   <button
+                    aria-label="increase-product-quantity"
                     className={styles.incBtn}
                     onClick={() => onIncProductQuantity(name)}
                   >
