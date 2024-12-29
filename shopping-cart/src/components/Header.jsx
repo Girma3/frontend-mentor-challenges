@@ -7,7 +7,7 @@ function Header({
   onMobileMenu,
 }) {
   return (
-    <nav className={styles.header} aria-live="polite">
+    <nav className={styles.header} aria-live="polite" role="navigation">
       {deviceSize < 760 && (
         <section className={styles.navHolder}>
           {show ? (

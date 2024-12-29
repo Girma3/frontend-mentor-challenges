@@ -268,7 +268,7 @@ function CheckOut({
     </>
   );
 }
-function Summary({ allProducts, allCartProducts, handleSubmit, customer }) {
+function Summary({ allProducts, allCartProducts, handleSubmit }) {
   let totalPrice = calculateTotalPrice(allCartProducts);
   let priceWithVat = (totalPrice * VAT).toFixed();
   let grandTotal = (totalPrice + SHIPPING_PRICE).toFixed();
@@ -305,9 +305,6 @@ function Summary({ allProducts, allCartProducts, handleSubmit, customer }) {
           <p className={styles.paymentName}>GRAND TOTAL</p>
           <p className={styles.grandTotal}>$ {grandTotal}</p>
         </div>
-        {validateForm(customer).length > 2 && (
-          <span>fill all the form filed correctly</span>
-        )}
         <button
           type="submit"
           onSubmit={(e) => handleSubmit(e)}
