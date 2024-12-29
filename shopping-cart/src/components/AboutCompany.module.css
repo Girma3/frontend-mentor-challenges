@@ -1,0 +1,90 @@
+/* exo-2-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/exo-2-v24-latin-regular.woff2") format("woff2");
+}
+/* inconsolata-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/inconsolata-v32-latin-regular.woff2")
+    format("woff2");
+}
+.flexRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+.detailHolder {
+  width: 80%;
+}
+
+.imageHolder > picture > img {
+  width: fit-content;
+  height: 400px;
+  border-radius: 0.3rem;
+}
+.title {
+  font-family: "Exo 2";
+  font-size: 1.5rem;
+  letter-spacing: 1.2px;
+  word-wrap: break-word;
+  text-align: center;
+}
+.best {
+  color: #c84c05;
+}
+.aboutCompany {
+  font-size: 1.2rem;
+  font-family: "Inconsolata";
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-align: center;
+  word-wrap: break-word;
+  line-height: 1.5rem;
+}
+
+@media (min-width: 500px) {
+  .aboutCompany {
+    font-weight: 400;
+  }
+}
+@media (min-width: 760px) {
+  .flexRow {
+    flex-wrap: nowrap;
+    /* align-items: start; */
+  }
+  .flexColumn {
+    align-items: start;
+  }
+  .aboutCompany {
+    font-size: 0.8rem;
+    line-height: 1rem;
+    font-weight: 600;
+    color: rgb(72, 72, 72);
+    width: 70%;
+  }
+  .aboutCompany,
+  .title {
+    text-align: start;
+  }
+  .title {
+    font-size: 1.7rem;
+  }
+  .imageHolder > img {
+    width: 100%;
+  }
+}

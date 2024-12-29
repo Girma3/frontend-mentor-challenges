@@ -1,3 +1,11 @@
+/* teko-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Teko";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/teko-v20-latin-regular.woff2") format("woff2");
+}
 .flexRow {
   display: flex;
   align-items: center;
@@ -20,6 +28,8 @@ footer {
   transition: all 1s ease;
 }
 .aboutCompany {
+  font-family: "Teko";
+  font-weight: 400;
   color: antiquewhite;
   letter-spacing: 2px;
   font-size: 1rem;
@@ -42,7 +52,18 @@ footer:before {
   color: white;
   width: 100%;
 }
-
+.tgLogo,
+.xLogo {
+  width: 35px;
+  aspect-ratio: 1;
+  stroke-width: 0.5rem;
+}
+.tgLogo:hover {
+  fill: rgb(0, 123, 176);
+}
+.xLogo:hover {
+  fill: rgb(0, 4, 255);
+}
 @media (min-width: 500px) {
   .flexRow {
     flex-wrap: nowrap;

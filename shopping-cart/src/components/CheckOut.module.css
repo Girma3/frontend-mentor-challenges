@@ -1,7 +1,19 @@
+/* pridi-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Pridi";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/pridi-v13-latin-regular.woff2") format("woff2");
+}
+
 .formHolder {
   width: 100%;
+  padding-block: 2rem;
   max-width: 1200px;
   align-content: center;
+  border-radius: 0.3rem;
+  background-color: rgb(222, 222, 222);
 }
 .billing {
   display: flex;
@@ -9,32 +21,56 @@
 .flexRow {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  gap: 0.5rem;
 }
 .flexColumn {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
-
+.formInputHolder {
+  max-width: (50%, 600px);
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
 .title {
+  font-family: "Pridi";
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 800;
   letter-spacing: 2px;
 }
 .paymentType {
   font-size: 0.7rem;
+  padding-block: 0.5rem;
   font-weight: 800;
   letter-spacing: 2px;
-  color: rgb(147, 81, 1);
+  color: #c84c05;
+  font-family: "Pridi";
+}
+.cashPay {
+  width: 40%;
+  height: 160px;
+}
+.cashDeliver {
+  font-family: "Pridi";
+  padding-block: 0.2rem;
+  width: 370px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+}
+.eMoneyHolder {
+  height: 160px;
 }
 
 label,
 .paymentMethod {
   font-size: 1rem;
   font-weight: 700;
+  font-family: "Pridi";
   letter-spacing: 1px;
+  padding: 0.5rem;
 }
 label:hover {
   color: green;
@@ -49,33 +85,44 @@ label:hover {
 
 input,
 .radioLabel {
-  border: 2px solid rgb(146, 146, 146);
+  font-family: "Pridi";
+  border: 1.5px solid rgb(146, 146, 146);
   padding: 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 0.6rem;
-  font-weight: 600;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 800;
   letter-spacing: 1px;
   cursor: text;
-  text-shadow: 0px 1px 0px yellow;
+  text-shadow: 0px 1px 0px rgb(213, 213, 0);
 }
 input:focus {
-  border: 2px solid orange;
+  border: 1.5px solid rgb(11, 139, 34);
   outline: 0px solid orange;
 }
 .radioLabel {
   margin-bottom: 0.2rem;
 }
-
+.radioLabel > input {
+  cursor: pointer;
+}
 /* summary style */
 .summary {
+  font-family: "Pridi";
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 1px;
 }
 .summaryHolder {
-  width: 40%;
+  width: 100%;
   max-width: 300px;
+  height: 400px;
+  overflow-y: scroll;
+
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
 }
+
 .productList {
   padding: 0;
 }
@@ -101,6 +148,7 @@ input:focus {
 .price,
 .productPrice,
 .quantity {
+  font-family: "Pridi";
   color: rgb(86, 86, 86);
   padding: 0.4rem;
   margin: 0;
@@ -114,21 +162,135 @@ input:focus {
   font-weight: 700;
 }
 .grandTotal {
-  color: rgb(145, 94, 0);
+  font-family: "Pridi";
+  color: #c84c05;
   font-weight: 600;
 }
-.payBtn {
+.backBtn {
+  margin-block: 1rem;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  font-size: 0.6rem;
+  font-weight: 700;
+  border-radius: 0.2rem;
+}
+.backBtn:hover {
+  color: white;
+  background: linear-gradient(to right, red, blue);
+}
+.payBtn,
+.confirmBtn {
+  font-family: "Pridi";
   padding: 1rem;
   border: none;
   outline: none;
-  background-color: rgb(189, 89, 1);
+  background-color: #c84c05;
   color: antiquewhite;
   letter-spacing: 1.5px;
   font-size: 0.9rem;
   font-weight: 800;
   border-radius: 0.3rem;
-  transition: all 1s ease;
+  transition: all 0.7s ease;
 }
-.payBtn:hover {
+.payBtn:hover,
+.confirmBtn:hover {
   color: blue;
+}
+/* .payBtn:disabled {
+  background-color: grey;
+  color: red;
+} */
+.paymentHolder/* confirm order */
+.modalHolder {
+  position: absolute;
+  top: 0;
+  background-color: hsla(0, 0%, 49%, 0.2);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  width: 100vw;
+  min-height: 250%;
+  z-index: 100;
+}
+.confirmModal {
+  position: absolute;
+  left: 0;
+  top: 5%;
+  padding: 0.3rem;
+  gap: 1rem;
+  background-color: aquamarine;
+}
+.confirmMsgHolder {
+  width: 400px;
+  flex-wrap: nowrap;
+  border-radius: 0.4rem;
+  border: 1px solid rgb(220, 220, 220);
+}
+.checkMark {
+  width: 50px;
+  aspect-ratio: 1;
+}
+.horizontalLine {
+  margin-block: 0.4rem;
+  width: 80%;
+  position: relative;
+  left: 14%;
+  height: 2px;
+  background-image: linear-gradient(
+    to right,
+    green,
+    rgb(229, 255, 0),
+    rgb(255, 0, 0)
+  );
+}
+.orderTitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+  text-align: start;
+}
+.confirmPar {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: gray;
+  letter-spacing: 1px;
+  text-align: start;
+  padding-block: 0.5rem;
+}
+
+.orderTotal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: black;
+  color: aliceblue;
+  width: 150px;
+  border-radius: 0 0.3rem 0.3rem 0;
+}
+.orderTotal {
+  font-size: 0.5rem;
+}
+.totalPrice {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.confirmBtn {
+  width: 100%;
+  border-radius: 0rem;
+  margin: auto;
+  padding: 0.5rem;
+  margin-block: 1rem;
+}
+@media (min-width: 500px) {
+  .flexRow {
+    justify-content: space-around;
+  }
+  .summaryHolder {
+    width: 40%;
+  }
+}
+@media (min-width: 760px) {
+  .confirmModal {
+    left: 25%;
+  }
 }

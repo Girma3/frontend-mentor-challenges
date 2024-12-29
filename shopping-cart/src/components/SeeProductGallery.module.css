@@ -1,0 +1,152 @@
+/* teko-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Teko";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/teko-v20-latin-regular.woff2") format("woff2");
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.flexRow {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.allProductHolder {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+/* zx7 speaker style */
+
+.speakerHolder {
+  width: 100%;
+  height: 350px;
+  background: url(/assets/home/mobile/image-speaker-zx7.jpg) no-repeat;
+  background-position: right bottom;
+  background-size: contain;
+  border-radius: 0.3rem;
+  background-color: #dcdcdc;
+}
+.earPhoneHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  max-width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+.speakerHolder,
+.earPhoneHolder {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+.earPhoneImage,
+.aboutEarPhone {
+  width: 100%;
+  height: 400px;
+  border-radius: 0.3rem;
+}
+.aboutEarPhone {
+  height: 200px;
+  padding-block: 1rem;
+}
+
+.speakerName,
+.earPhoneName {
+  font-size: 1.2rem;
+  padding: 1rem;
+  letter-spacing: 2px;
+  font-family: "Teko";
+}
+
+.aboutSpeaker,
+.aboutEarPhone {
+  padding: 1rem;
+  width: 100%;
+  border-radius: 0.3rem;
+}
+.aboutEarPhone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(235, 232, 232);
+  margin-top: 0;
+  padding: 0;
+}
+
+.seeProductBtn {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  padding: 1rem;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  border: 2px solid black;
+  outline: none;
+  border-radius: 0.2rem;
+  transition: all 0.3s ease-in-out;
+}
+.btnHolder {
+  position: relative;
+}
+.seeProductBtn > span {
+  position: relative;
+  z-index: 1;
+}
+.seeProductBtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 185px;
+  border-radius: 0.2rem;
+  background-color: rgb(248, 190, 0);
+  transform-origin: bottom;
+  transform: scaleX(0);
+  transition: transform 500ms ease;
+  z-index: 0;
+}
+
+.seeProductBtn:hover::after {
+  transform: scale(1);
+}
+
+@media (min-width: 500px) {
+  .earPhoneHolder {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+  .speakerHolder {
+    height: 245px;
+    background-image: url(/assets/home/tablet/image-speaker-zx7.jpg);
+  }
+  .aboutEarPhone {
+    height: 400px;
+  }
+}
+@media (min-width: 760px) {
+  .speakerHolder {
+    height: 190px;
+    background-image: url(/assets/home/desktop/image-speaker-zx7.jpg);
+    width: 96%;
+  }
+  .earPhoneHolder {
+    margin-bottom: 3rem;
+    width: 100%;
+  }
+}

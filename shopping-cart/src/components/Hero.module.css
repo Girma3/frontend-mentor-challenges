@@ -1,4 +1,28 @@
+/* exo-2-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Exo2";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/exo-2-v24-latin-regular.woff2") format("woff2");
+}
+.flexRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 90%;
+  height: 350px;
+  gap: 2.5rem;
+  padding-inline: 1rem;
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
 .hero {
+  position: relative;
   display: flex;
   background-color: rgb(0, 0, 0);
   width: 100%;
@@ -7,16 +31,37 @@
   letter-spacing: 2px;
   transition: all 1.5s ease;
 }
+.currentPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0, 0, 0);
+  height: 150px;
+  color: white;
+  text-align: center;
+  letter-spacing: 2px;
+  transition: all 2s ease;
+  font-family: "Exo2";
+}
+.currentPage:hover {
+  color: rgb(1, 255, 1);
+}
 .aboutProduct {
+  font-family: "Exo2";
+
   position: absolute;
   top: 25%;
-  left: max(4rem, max(4rem, 25%));
+  left: max(0.2rem, max(1rem, 10%));
   text-align: center;
-  text-shadow: 0px 1px 0px rgb(255, 221, 0);
+  width: 80%;
+  align-items: center;
   transition: all 1s ease-in-out;
 }
 .productDetail {
-  font-size: 1.2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-shadow: 0px 0 0px rgb(59, 5, 255);
+  width: 70%;
   transition: all 1s ease-in-out;
 }
 .productImage {
@@ -35,7 +80,89 @@
   height: 100%;
   background-color: rgb(0, 0, 0);
 }
+.newProduct {
+  font-size: 0.6rem;
+  font-size: 400;
+  letter-spacing: 4px;
+}
+.title {
+  font-size: 1.5rem;
+  text-shadow: 1px 0px 1px rgb(251, 255, 0);
+  letter-spacing: 2px;
+}
+/* cover all page when open mobile nav */
+.mobileNav {
+  width: 100%;
+  height: 590%;
+  pointer-events: bounding-box;
+  background-color: hsla(300, 75%, 14%, 0.2);
+  backdrop-filter: blur(4px);
+  position: absolute;
+  top: 22%;
+  z-index: 100;
+
+  transition: all 2s ease-in-out;
+}
+.mobileNav::before {
+  content: "";
+  height: 63px;
+  position: absolute;
+  top: -12%;
+  width: 100%;
+  z-index: -5;
+  background-color: hsla(0, 1%, 84%, 0.2);
+  backdrop-filter: blur(2px);
+}
+/* btn style */
+.btnHolder {
+  position: relative;
+}
+.seeProductBtn {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.6rem;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  border: 2px solid black;
+  outline: none;
+  border-radius: 0.2rem;
+  background-color: #c84c05;
+  transition: all 0.3s ease-in-out;
+}
+.seeProductBtn > span {
+  position: relative;
+  z-index: 1;
+}
+.seeProductBtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 165px;
+  border-radius: 0.2rem;
+  background: linear-gradient(to top, rgb(255, 0, 255), red);
+  transform-origin: bottom;
+  transform: scaleX(0);
+  transition: transform 500ms ease;
+  z-index: 0;
+}
+
+.seeProductBtn:hover::after {
+  transform: scale(1);
+}
+
 @media (min-width: 500px) {
+  .flexRow {
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    gap: 0.5rem;
+    padding: 0;
+    margin: auto;
+  }
   .hero {
     height: 65vh;
   }
@@ -43,7 +170,11 @@
     background-image: url("/assets/home/tablet/image-header.jpg");
   }
   .aboutProduct {
-    left: max(5rem, max(5rem, 35%));
+    width: 240px;
+    left: max(0.2rem, max(1rem, 30%));
+  }
+  .mobileNav {
+    height: 475%;
   }
 }
 @media (min-width: 760px) {
@@ -59,5 +190,7 @@
     padding-right: 1rem;
     text-align: start;
     left: 20%;
+    align-items: start;
+    width: 40%;
   }
 }

@@ -1,26 +1,30 @@
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import HeadPhones from "./pages/HeadPhones";
-import { useEffect, useState } from "react";
-import Speakers from "./pages/Speakers";
-import EarPhones from "./pages/EarPhones";
-import ProductDetail from "./components/ProductDetail.jsx";
+import { useEffect, useState, useReducer } from "react";
+//components
 import CheckOut from "./components/CheckOut.jsx";
-import useFetch from "./hooks/useFetch.jsx";
-import useLocalStorageState from "./hooks/useLocalStorage.jsx";
-import { useReducer } from "react";
 import Header from "./components/Header.jsx";
 import Cart from "./components/Cart.jsx";
-import "./index.css";
+import AddedToCartNotification from "./components/AddedToCartNotification.jsx";
+import Footer from "./components/Footer";
+import ProductDetail from "./components/ProductDetail.jsx";
+//custom hooks
+import useFetch from "./hooks/useFetch.jsx";
+import useLocalStorageState from "./hooks/useLocalStorage.jsx";
+//pages
+import Home from "./pages/Home";
+import Speakers from "./pages/Speakers";
+import EarPhones from "./pages/EarPhones";
+import HeadPhones from "./pages/HeadPhones";
+//functions and objects
 import {
   getProduct,
   PersonalInfo,
-  productsInMarket,
+  productsInStore,
   cartProducts,
-} from "./functions.js";
-import AddedToCartNotification from "./components/AddedToCartNotification.jsx";
+} from "./utilityFunctions.js";
+import "./index.css";
 
+//reducer action types
 const ACTIONS = {
   INCREMENT_QUANTITY: "incQuantity",
   DECREMENT_QUANTITY: "decQuantity",
@@ -32,7 +36,7 @@ const ACTIONS = {
   RESET_CHECKOUT_FORM: "restCheckOutForm",
 };
 
-const availableProducts = productsInMarket;
+const availableProducts = productsInStore;
 const initialForm = PersonalInfo();
 
 function customerInfoReducer(checkOutForm, action) {
@@ -69,7 +73,6 @@ function productReducer(allProducts, action) {
     case ACTIONS.DECREMENT_QUANTITY:
       return allProducts.map((product) => {
         if (product.productName === action.productName) {
-          //  console.log(product.demand);
           if (product.demand === 1) {
             return { ...product, demand: 0, addToCart: false };
           }
@@ -87,7 +90,7 @@ function productReducer(allProducts, action) {
           if (action.value < 0) return product;
           if (action.value <= product.inStock) {
             if (action.value === 0) {
-              return { ...product, product: action.value, addToChart: false };
+              return { ...product, demand: action.value, addToChart: false };
             }
             return { ...product, demand: action.value };
           } else {
@@ -132,30 +135,29 @@ function productReducer(allProducts, action) {
 }
 
 function App() {
-  //const [allProducts, dispatch] = useReducer(productReducer, availableProducts);
-  const [allCartProducts, setCartProducts] = useLocalStorageState(
+  const [allStockProducts, setStockProducts] = useLocalStorageState(
     availableProducts,
-    "allCartProducts"
+    "allStockProducts"
   );
-  const [allProducts, dispatch] = useReducer(productReducer, allCartProducts);
-  const [products, setProducts] = useLocalStorageState([], "products");
+  const [allProducts, dispatch] = useReducer(productReducer, allStockProducts);
+  const [productsDataArray, setProductsDataArray] = useLocalStorageState(
+    [],
+    "productsDataArray"
+  );
   const { data, isLoading, error } = useFetch("data/data.json");
 
   // console.log(allProducts);
   useEffect(() => {
-    setCartProducts(() => allProducts);
-  }, [allProducts, setCartProducts]);
+    setStockProducts(() => allProducts);
+  }, [allProducts, setStockProducts]);
 
-  console.log(allCartProducts);
-  const [notification, setNotification] = useState(0);
+  const [notification, setNotification] = useState(1);
+  const [cartMsg, setCartMsg] = useState("");
   const [customerInfo, dispatchCustomerInfo] = useReducer(
     customerInfoReducer,
     initialForm
   );
 
-  useEffect(() => {
-    setNotification(() => allCartProducts.length);
-  }, [allCartProducts.length]);
   // console.log(notification);
   // console.log(allCartProducts);
   // console.log(allCartProducts.length);
@@ -175,10 +177,6 @@ function App() {
   }
   function handleAddToCart(name) {
     dispatch({ type: ACTIONS.ADD_TO_CART, productName: name });
-    setNotification(allProducts.length);
-  }
-  function handleRemoveFromCart(name) {
-    dispatch({ type: ACTIONS.REMOVE_FROM_CART, productName: name });
   }
   function handleRemoveAllFromCart() {
     dispatch({ type: ACTIONS.REMOVE_ALL_FROM_CART });
@@ -192,32 +190,84 @@ function App() {
       value: type === "checkbox" ? checked : value,
     });
   }
+  function handleResetAll() {
+    dispatchCustomerInfo({ type: ACTIONS.RESET_CHECKOUT_FORM });
+    dispatch({ type: ACTIONS.REMOVE_ALL_FROM_CART });
+  }
 
+  //store products data
   useEffect(() => {
-    if (products.length > 0) return;
+    if (productsDataArray.length > 0) return;
+    setProductsDataArray([...data]);
+  }, [data, productsDataArray.length, setProductsDataArray]);
 
-    setProducts([...data]);
-  }, [products.length, data, setProducts]);
+  const headPhones = getProduct(productsDataArray, "headphones");
+  const earPhones = getProduct(productsDataArray, "earphones");
+  const speakers = getProduct(productsDataArray, "speakers");
+  let itemsAddedToCart = cartProducts(allStockProducts);
 
-  const headPhones = getProduct(products, "headphones");
-  const earPhones = getProduct(products, "earphones");
-  const speakers = getProduct(products, "speakers");
+  // notification when cart item quantity changed
+  useEffect(() => {
+    setNotification((prevState) => {
+      const newValue = itemsAddedToCart.length;
 
-  if (isLoading || !products.length) return <p>Loading...</p>;
+      let msg = "";
+      if (prevState !== undefined) {
+        msg = `${newValue}  ${newValue > 1 ? "items" : "item"} in cart`;
+        // Ensure prevState is defined
+        if (prevState > newValue) {
+          msg = `1 item removed from cart ,you have ${newValue} ${
+            newValue > 1 ? "items" : "item"
+          } in cart`;
+        } else if (newValue > prevState) {
+          msg = `1 item added to cart, you have ${newValue}  ${
+            newValue > 1 ? "items" : "item"
+          } in cart`;
+        }
+      }
+      setCartMsg(() => msg);
+      return newValue;
+    });
+  }, [itemsAddedToCart.length]);
+
+  // screen size to adjust styles
+  const [showMenu, setShowMenu] = useState(false);
+  function handleMobileMenu() {
+    setShowMenu(() => !showMenu);
+  }
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  //hide mobile menu on large screen if it is open
+  useEffect(() => {
+    if (screenSize < 760) return;
+    setShowMenu(false);
+  }, [screenSize, setShowMenu]);
+  if (isLoading || !productsDataArray.length) return <p>Loading...</p>;
   if (error === true) return <p>Please,reload again.</p>;
 
   return (
     <>
       <BrowserRouter>
         <header className="header">
-          <Header />
-          {notification && (
-            <AddedToCartNotification message={notification.toString()} />
-          )}
+          <Header
+            show={showMenu}
+            deviceSize={screenSize}
+            onMobileMenu={handleMobileMenu}
+          />
+
+          {notification && <AddedToCartNotification message={cartMsg} />}
           <Cart
-            products={products}
-            allCartProducts={cartProducts(allProducts)}
-            stockProducts={allCartProducts}
+            productsData={productsDataArray}
+            allCartProducts={itemsAddedToCart}
+            stockProducts={allStockProducts}
             onIncQuantity={handleIncProductQuantity}
             onDecQuantity={handleDecProductQuantity}
             onRemoveAll={handleRemoveAllFromCart}
@@ -226,44 +276,87 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Home requestedProduct={allProducts} />}
+            element={
+              <Home
+                requestedProduct={allProducts}
+                showMobileMenu={showMenu}
+                onCloseMobileNav={handleMobileMenu}
+              />
+            }
           ></Route>
           <Route
             path="/headPhones"
-            element={<HeadPhones productArray={headPhones} />}
+            element={
+              <HeadPhones
+                productsData={headPhones}
+                showMobileMenu={showMenu}
+                onCloseMobileNav={handleMobileMenu}
+              />
+            }
           ></Route>
           <Route
             path="/headPhones/:name"
             element={
               <ProductDetail
-                productArray={headPhones}
-                allProducts={products}
-                stockProducts={allCartProducts}
+                productsData={headPhones}
+                allProductsData={productsDataArray}
+                stockProducts={allStockProducts}
                 onIncProductQuantity={handleIncProductQuantity}
                 onDecProductQuantity={handleDecProductQuantity}
                 onQuantityInput={handleQuantityInput}
                 onAddToCart={handleAddToCart}
+                showMobileMenu={showMenu}
               />
             }
           />
           <Route
             path="/speakers"
-            element={<Speakers productArray={speakers} />}
+            element={
+              <Speakers
+                productsData={speakers}
+                showMobileMenu={showMenu}
+                onCloseMobileNav={handleMobileMenu}
+              />
+            }
           ></Route>
           <Route
             path="/speakers/:name"
             element={
-              <ProductDetail productArray={speakers} allProducts={data} />
+              <ProductDetail
+                productsData={speakers}
+                allProductsData={productsDataArray}
+                stockProducts={allStockProducts}
+                onIncProductQuantity={handleIncProductQuantity}
+                onDecProductQuantity={handleDecProductQuantity}
+                onQuantityInput={handleQuantityInput}
+                onAddToCart={handleAddToCart}
+                showMobileMenu={showMenu}
+              />
             }
           />
           <Route
             path="/earPhones"
-            element={<EarPhones productArray={earPhones} />}
+            element={
+              <EarPhones
+                productsData={earPhones}
+                showMobileMenu={showMenu}
+                onCloseMobileNav={handleMobileMenu}
+              />
+            }
           ></Route>
           <Route
             path="/earphones/:name"
             element={
-              <ProductDetail productArray={earPhones} allProducts={data} />
+              <ProductDetail
+                productsData={earPhones}
+                allProductsData={productsDataArray}
+                stockProducts={allStockProducts}
+                onIncProductQuantity={handleIncProductQuantity}
+                onDecProductQuantity={handleDecProductQuantity}
+                onQuantityInput={handleQuantityInput}
+                onAddToCart={handleAddToCart}
+                showMobileMenu={showMenu}
+              />
             }
           />
           <Route
@@ -272,8 +365,11 @@ function App() {
               <CheckOut
                 customer={customerInfo}
                 handleInputChange={handelCheckOutForm}
-                allProducts={products}
-                allCartProducts={allCartProducts}
+                allProducts={productsDataArray}
+                allCartProducts={itemsAddedToCart}
+                onConfirm={handleResetAll}
+                showMobileMenu={showMenu}
+                onCloseMobileNav={handleMobileMenu}
               />
             }
           ></Route>
