@@ -56,7 +56,11 @@ function CheckOut({
           Go Back
         </button>
         <section className={`${styles.formHolder}`}>
-          <form className={styles.flexRow} onSubmit={(e) => handleForSubmit(e)}>
+          <form
+            role="form"
+            className={styles.flexRow}
+            onSubmit={(e) => handleForSubmit(e)}
+          >
             <section className={styles.formInputHolder}>
               <h1 className={styles.title}>CHECKOUT</h1>
               <div className={styles.flexColumn}>
@@ -94,7 +98,7 @@ function CheckOut({
                 <label htmlFor="phoneNumber" className={styles.flexColumn}>
                   Phone Number
                   <input
-                    type="number"
+                    type="tel"
                     id="phoneNumber"
                     name="phoneNumber"
                     min={5}
@@ -245,6 +249,7 @@ function CheckOut({
             <Summary
               allProducts={allProducts}
               allCartProducts={allCartProducts}
+              customer={customer}
               handleSubmit={handleForSubmit}
             />
           </form>
@@ -263,7 +268,7 @@ function CheckOut({
     </>
   );
 }
-function Summary({ allProducts, allCartProducts, handleSubmit }) {
+function Summary({ allProducts, allCartProducts, handleSubmit, customer }) {
   let totalPrice = calculateTotalPrice(allCartProducts);
   let priceWithVat = (totalPrice * VAT).toFixed();
   let grandTotal = (totalPrice + SHIPPING_PRICE).toFixed();
@@ -300,6 +305,9 @@ function Summary({ allProducts, allCartProducts, handleSubmit }) {
           <p className={styles.paymentName}>GRAND TOTAL</p>
           <p className={styles.grandTotal}>$ {grandTotal}</p>
         </div>
+        {validateForm(customer).length > 2 && (
+          <span>fill all the form filed correctly</span>
+        )}
         <button
           type="submit"
           onSubmit={(e) => handleSubmit(e)}
