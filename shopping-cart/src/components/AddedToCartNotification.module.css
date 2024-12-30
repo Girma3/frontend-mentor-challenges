@@ -36,7 +36,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  animation: slideCart 9s ease-in-out infinite;
+  animation: slideCart 6s ease-in-out infinite;
   opacity: 0;
 }
 .slider {

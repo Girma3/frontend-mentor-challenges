@@ -6,7 +6,7 @@ function AddedToCartNotification({ message = "king" }) {
   //adjustable by the slider
   const [timeoutValue, setTimeoutValue] = useState(0);
   const [visible, setVisible] = useState(false);
-  const maxValue = 7; // maximum value for the slider(10 sec)
+  const maxValue = 5; // maximum value for the slider(10 sec)
   const intervalRef = useRef(null);
 
   // memoize the interval function
