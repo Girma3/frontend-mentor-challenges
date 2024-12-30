@@ -145,7 +145,7 @@ function App() {
     [],
     "productsDataArray"
   );
-  const { data, isLoading, error } = useFetch("data/data.json");
+  const { data, isLoading, error } = useFetch("/data/data.json");
   const [pageLoad, setPageLoad] = useState(false);
 
   // console.log(allProducts);
