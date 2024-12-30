@@ -7,6 +7,7 @@ import Cart from "./components/Cart.jsx";
 import AddedToCartNotification from "./components/AddedToCartNotification.jsx";
 import Footer from "./components/Footer";
 import ProductDetail from "./components/ProductDetail.jsx";
+import Loading from "./components/Loading.jsx";
 //custom hooks
 import useFetch from "./hooks/useFetch.jsx";
 import useLocalStorageState from "./hooks/useLocalStorage.jsx";
@@ -145,22 +146,23 @@ function App() {
     "productsDataArray"
   );
   const { data, isLoading, error } = useFetch("data/data.json");
+  const [pageLoad, setPageLoad] = useState(false);
 
   // console.log(allProducts);
   useEffect(() => {
     setStockProducts(() => allProducts);
   }, [allProducts, setStockProducts]);
 
-  const [notification, setNotification] = useState(1);
+  const [notification, setNotification] = useLocalStorageState(
+    0,
+    "notification"
+  );
+
   const [cartMsg, setCartMsg] = useState("");
   const [customerInfo, dispatchCustomerInfo] = useReducer(
     customerInfoReducer,
     initialForm
   );
-
-  // console.log(notification);
-  // console.log(allCartProducts);
-  // console.log(allCartProducts.length);
 
   function handleIncProductQuantity(name) {
     dispatch({ type: ACTIONS.INCREMENT_QUANTITY, productName: name });
@@ -198,8 +200,10 @@ function App() {
   //store products data
   useEffect(() => {
     if (productsDataArray.length > 0) return;
+    setPageLoad(() => !pageLoad);
     setProductsDataArray([...data]);
-  }, [data, productsDataArray.length, setProductsDataArray]);
+    setPageLoad(() => !pageLoad);
+  }, [data, pageLoad, productsDataArray.length, setProductsDataArray]);
 
   const headPhones = getProduct(productsDataArray, "headphones");
   const earPhones = getProduct(productsDataArray, "earphones");
@@ -207,14 +211,16 @@ function App() {
   let itemsAddedToCart = cartProducts(allStockProducts);
 
   // notification when cart item quantity changed
+
   useEffect(() => {
     setNotification((prevState) => {
       const newValue = itemsAddedToCart.length;
-
       let msg = "";
+
+      if (prevState === undefined || newValue === 0 || prevState === newValue)
+        return newValue;
+
       if (prevState !== undefined) {
-        msg = `${newValue}  ${newValue > 1 ? "items" : "item"} in cart`;
-        // Ensure prevState is defined
         if (prevState > newValue) {
           msg = `1 item removed from cart ,you have ${newValue} ${
             newValue > 1 ? "items" : "item"
@@ -224,11 +230,11 @@ function App() {
             newValue > 1 ? "items" : "item"
           } in cart`;
         }
+        setCartMsg(() => msg);
       }
-      setCartMsg(() => msg);
       return newValue;
     });
-  }, [itemsAddedToCart.length]);
+  }, [itemsAddedToCart.length, setNotification]);
 
   // screen size to adjust styles
   const [showMenu, setShowMenu] = useState(false);
@@ -250,7 +256,7 @@ function App() {
     if (screenSize < 760) return;
     setShowMenu(false);
   }, [screenSize, setShowMenu]);
-  if (isLoading || !productsDataArray.length) return <p>Loading...</p>;
+  if (isLoading || !productsDataArray.length || pageLoad) return <Loading />;
   if (error === true) return <p>Please,reload again.</p>;
 
   return (
@@ -263,7 +269,9 @@ function App() {
             onMobileMenu={handleMobileMenu}
           />
 
-          {notification && <AddedToCartNotification message={cartMsg} />}
+          {notification !== 0 && cartMsg && (
+            <AddedToCartNotification message={cartMsg} />
+          )}
           <Cart
             productsData={productsDataArray}
             allCartProducts={itemsAddedToCart}
@@ -285,7 +293,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/headPhones"
+            path="/headphones"
             element={
               <HeadPhones
                 productsData={headPhones}
@@ -295,7 +303,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/headPhones/:name"
+            path="/headphones/:name"
             element={
               <ProductDetail
                 productsData={headPhones}
@@ -335,7 +343,7 @@ function App() {
             }
           />
           <Route
-            path="/earPhones"
+            path="/earphones"
             element={
               <EarPhones
                 productsData={earPhones}
