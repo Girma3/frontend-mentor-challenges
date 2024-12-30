@@ -77,6 +77,7 @@ function CheckOut({
                       value={customer.customerName}
                       onChange={(e) => handleInputChange(e)}
                       autoComplete="true"
+                      placeholder="king"
                       required
                     />
                   </label>
@@ -90,6 +91,7 @@ function CheckOut({
                       value={customer.email}
                       onChange={(e) => handleInputChange(e)}
                       autoComplete="true"
+                      placeholder="stoic@.g-mail.com"
                       required
                     />
                   </label>
@@ -104,6 +106,8 @@ function CheckOut({
                     min={5}
                     value={customer.phoneNumber}
                     onChange={(e) => handleInputChange(e)}
+                    placeholder="+251 10 20 30 40"
+                    autoComplete="true"
                     required
                   />
                 </label>
@@ -120,6 +124,7 @@ function CheckOut({
                     value={customer.address}
                     onChange={(e) => handleInputChange(e)}
                     autoComplete="true"
+                    placeholder="111 Avenue"
                     required
                   />
                 </label>
@@ -133,6 +138,7 @@ function CheckOut({
                       min={4}
                       value={customer.zipCode}
                       onChange={(e) => handleInputChange(e)}
+                      placeholder="1234"
                       required
                     />
                   </label>
@@ -147,6 +153,7 @@ function CheckOut({
                       value={customer.city}
                       onChange={(e) => handleInputChange(e)}
                       autoComplete="true"
+                      placeholder="Athens"
                       required
                     />
                   </label>
@@ -162,6 +169,7 @@ function CheckOut({
                     value={customer.country}
                     onChange={(e) => handleInputChange(e)}
                     autoComplete="true"
+                    placeholder="Greek"
                     required
                   />
                 </label>
@@ -209,6 +217,8 @@ function CheckOut({
                           min={2}
                           value={customer.eMonyNumber}
                           onChange={(e) => handleInputChange(e)}
+                          placeholder="4567892"
+                          autoComplete="true"
                           required
                         />
                       </label>
@@ -222,6 +232,8 @@ function CheckOut({
                           min={2}
                           value={customer.pin}
                           onChange={(e) => handleInputChange(e)}
+                          placeholder="8423"
+                          autoComplete="true"
                           required
                         />
                       </label>
