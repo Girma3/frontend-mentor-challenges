@@ -31,22 +31,24 @@ Users should be able to:
 
 ### Screenshot
 
-![desktop-search-design](public/assets/images/search.png)
-![mobile-design](public/assets/images/mobile-design.png)
-![detail-page-desktop-design](public/assets/images/detail-page.png)
+![desktop-homepage](public/assets/screenshot/homepage-desktop.png)
+![product-detail-page](public/assets/screenshot/detailpage.png)
+![mobile-checkout-page](public/assets/screenshot/mobile-checkout-page.png)
+![cart-modal](public/assets/screenshot/chart-modal.png)
 
 ### Links
 
-- Solution URL: [https://github.com/Girma3/frontend-mentor-challenges/tree/main/rest-countries-api]
-- Live Site URL: [https://frontend-mentor-challenges-peach.vercel.app/]
+- Live Site URL: [https://shopping-audio-e-commerce.vercel.app/]
 
 ## My process
+
+- first time learning about testing react components and struggle on how to select element first but once the project goes on it becomes much easier and next time I'll test component using mocked state.
 
 ### Built with
 
 - Semantic HTML5 markup
 - CSS
-- Flexbox
+- Flex-box
 - Mobile-first workflow
 - vitest
 - [React](https://reactjs.org/) - JS library
