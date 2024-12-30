@@ -35,7 +35,7 @@ function ProductDetail({
   )[0];
 
   function disableBtn() {
-    return selectedProduct.inStock > selectedProduct.demand;
+    return selectedProduct.inStock >= selectedProduct.demand;
   }
 
   const features = product.features;

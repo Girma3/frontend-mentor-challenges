@@ -1,7 +1,6 @@
 import ListProducts from "../components/ListProducts";
 import ProductNav from "../components/ProductNav";
 import propTypes from "prop-types";
-
 import AboutCompany from "../components/AboutCompany";
 import Hero from "../components/Hero";
 
