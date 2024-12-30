@@ -200,10 +200,10 @@ function App() {
   //store products data
   useEffect(() => {
     if (productsDataArray.length > 0) return;
-    setPageLoad(() => !pageLoad);
+    setPageLoad(true);
     setProductsDataArray([...data]);
-    setPageLoad(() => !pageLoad);
-  }, [data, pageLoad, productsDataArray.length, setProductsDataArray]);
+    setPageLoad(false);
+  }, [data, productsDataArray.length, setProductsDataArray]);
 
   const headPhones = getProduct(productsDataArray, "headphones");
   const earPhones = getProduct(productsDataArray, "earphones");
@@ -256,7 +256,8 @@ function App() {
     if (screenSize < 760) return;
     setShowMenu(false);
   }, [screenSize, setShowMenu]);
-  if (isLoading || !productsDataArray.length || pageLoad) return <Loading />;
+  if (isLoading || !productsDataArray.length || pageLoad === true)
+    return <Loading />;
   if (error === true) return <p>Please,reload again.</p>;
 
   return (
