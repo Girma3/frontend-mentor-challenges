@@ -3,7 +3,6 @@ import CartItem from "./CartItem";
 import {
   calculateTotalPrice,
   getProductData,
-  scrollTop,
   validateForm,
 } from "../utilityFunctions";
 import { useState } from "react";
