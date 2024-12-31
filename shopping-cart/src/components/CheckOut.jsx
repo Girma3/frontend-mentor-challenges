@@ -320,7 +320,6 @@ function Summary({ allProducts, allCartProducts, handleSubmit }) {
         <button
           type="submit"
           onSubmit={(e) => handleSubmit(e)}
-          onClick={() => scrollTop()}
           className={styles.payBtn}
         >
           CONTINUE & PAY
@@ -391,7 +390,7 @@ function ConfirmOrderMessage({
           <div className={styles.orderTotal}>
             <div className={styles.flexColumn}>
               <p className={styles.orderTotal}>GRAND TOTAL</p>
-              <p className={styles.totalPrice}>{total}</p>
+              <p className={styles.totalPrice}>$ {total}</p>
             </div>
           </div>
         </div>
