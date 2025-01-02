@@ -1,76 +1,79 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import ProductDetail from "../../src/components/ProductDetail";
-import userEvent from "@testing-library/user-event";
-import { BrowserRouter, Routes, Route, ErrorBoundary } from "react-router-dom";
-import { productsInStore } from "../../src/utilityFunctions";
 
-const productStore = [
+import { Counter } from "../../src/components/ProductDetail";
+import userEvent from "@testing-library/user-event";
+
+const products = [
   { productName: "yx1-earphones", inStock: 3, demand: 0, price: 599 },
 ];
-const productData = [{ features: "cool stuff", slug: "yx1-earphones" }];
-const stockProduct = [{ productName: "yx1-earphones" }];
+const selectedProduct = products[0];
+const disableBtn = () => {
+  return selectedProduct.inStock >= selectedProduct.demand;
+};
 
 describe("", () => {
-  const onFun = vi.fn();
+  const onClicked = vi.fn();
   beforeEach(() => {
     render(
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProductDetail
-                productsData={productData}
-                allProductsData={stockProduct}
-                stockProducts={[productStore]}
-                onDecProductQuantity={onFun}
-              />
-            }
-          ></Route>
-        </Routes>
-      </BrowserRouter>
+      <Counter
+        onDecQuantity={onClicked}
+        onIncQuantity={onClicked}
+        selectedProduct={selectedProduct}
+        disableBtn={disableBtn}
+      />
     );
   });
-  it("renders ProductDetail component", () => {
-    const productName = screen.getByText(/yx1-earphones/i);
-    expect(productName).toBeInTheDocument();
-  });
-  /* it("does increment button works correctly", async () => {
-    const user = userEvent.setup();
-    const result = screen.getByLabelText("input", { name: /productDemand/i });
-    const incrementBtn = screen.getByLabelText("button", {
-      name: /increase-product-quantity/i,
-    });
-    await user.click(incrementBtn);
-    await user.click(incrementBtn);
-    // expect(result.textContent).toEqual("2");
-  });
-  it("does decrement button works correctly and  not get below zero", async () => {
-    const user = userEvent.setup();
-    const result = screen.getByLabelText("input", { name: /productDemand/i });
-    const decrementBtn = screen.getByLabelText("button", {
+  it("renders counter component", () => {
+    const decBtn = screen.getByRole("button", {
       name: /decrease-product-quantity/i,
     });
-    await user.click(decrementBtn);
-    await user.click(decrementBtn);
-    //  expect(result.textContent).toEqual("0");
+    const incBtn = screen.getByRole("button", {
+      name: /increase-product-quantity/i,
+    });
+    expect(decBtn).toBeInTheDocument();
+    expect(incBtn).toBeInTheDocument();
   });
-  it("increment then  decrement works correctly", async () => {
+  it("does increment button and input update product correctly", async () => {
     const user = userEvent.setup();
-    const result = screen.getByLabelText("input", {
+    const result = screen.getByRole("input", {
       name: /productDemand/i,
     });
     const incrementBtn = screen.getByLabelText("button", {
       name: /increase-product-quantity/i,
     });
+    await user.click(incrementBtn);
+    await user.click(incrementBtn);
+    expect(result.value).toEqual("2");
+    expect(selectedProduct.demand).toBe(2);
+  });
+  it("does decrement button works correctly and  not get below zero", async () => {
+    const user = userEvent.setup();
+    const result = screen.getByLabelText("input", {
+      name: /product-demand-quantity/i,
+    });
+    const decrementBtn = screen.getByLabelText("button", {
+      name: /decrease-product-quantity/i,
+    });
+    await user.click(decrementBtn);
+    await user.click(decrementBtn);
+    expect(result.value).toEqual("0");
+    expect(selectedProduct.demand).toBe(0);
+  });
+  it("increment then  decrement works correctly", async () => {
+    const user = userEvent.setup();
+    const result = screen.getByRole("input", {
+      name: /product-demand-quantity/i,
+    });
+    const incrementBtn = screen.getByLabelText("button", {
+      name: /increase-product-quantity/i,
+    });
     const decrementBtn = screen.getByLabelText("button", {
       name: /decrease-product-quantity/i,
     });
     await user.click(incrementBtn);
     await user.click(incrementBtn);
     await user.click(decrementBtn);
-    //  expect(result.textContent).toEqual("1");
+    expect(result.value).toEqual("1");
   });
-  */
 });
