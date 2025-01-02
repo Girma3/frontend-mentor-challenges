@@ -9,7 +9,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "__tests__/setup.js",
+  },
   server: {},
+
   build: {
     outDir: "dist",
     sourcemap: true,

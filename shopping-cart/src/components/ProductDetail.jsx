@@ -2,6 +2,7 @@ import styles from "./ProductDetail.module.css";
 import AboutCompany from "./AboutCompany";
 import ProductNav from "./ProductNav";
 import ProductSuggestCard from "./ProductSuggestCard";
+import Counter from "./Counter";
 import { useNavigate, useParams } from "react-router-dom";
 import propTypes from "prop-types";
 import Hero from "./Hero";
@@ -33,10 +34,6 @@ function ProductDetail({
   let selectedProduct = stockProducts.filter(
     (product) => product.productName === name
   )[0];
-
-  function disableBtn() {
-    return selectedProduct.inStock >= selectedProduct.demand;
-  }
 
   const features = product.features;
   let index = features.indexOf("\n\n");
@@ -84,58 +81,17 @@ function ProductDetail({
               <p className={styles.productDescription}>{product.description}</p>
               <p className={styles.price}>$ 5678</p>
 
-              <div className={`${styles.flexRow} ${styles.btnHolder}`}>
-                <div className={`${styles.flexRow} ${styles.quantityHolder}`}>
-                  <button
-                    aria-label="decrease-product-quantity"
-                    className={styles.decBtn}
-                    onClick={() => onDecProductQuantity(name)}
-                  >
-                    -
-                  </button>
-                  <span className={styles.msgMaxValue}>
-                    {Number(selectedProduct.inStock) ===
-                    Number(selectedProduct.demand)
-                      ? "reach max value in stock"
-                      : ""}
-                  </span>
-                  <label
-                    htmlFor="productDemand"
-                    className={styles.hideLabel}
-                  ></label>
-                  <input
-                    type="number"
-                    name="productDemand"
-                    id="productDemand"
-                    max={Number(selectedProduct.inStock)}
-                    value={Number(selectedProduct.demand)}
-                    aria-label="product-demand-quantity"
-                    className={styles.productQuantity}
-                    onChange={(e) => onQuantityInput(e, name)}
-                  />
-
-                  <button
-                    aria-label="increase-product-quantity"
-                    className={styles.incBtn}
-                    onClick={() => onIncProductQuantity(name)}
-                  >
-                    +
-                  </button>
-                </div>
-                <div className={styles.btnHolder}>
-                  <button
-                    className={`${styles.addToCartBtn} ${
-                      selectedProduct.inStock > selectedProduct.demand
-                        ? ""
-                        : styles.disableBtn
-                    }`}
-                    disabled={!disableBtn()}
-                    onClick={() => onAddToCart(name)}
-                  >
-                    <span>ADD TO CART</span>{" "}
-                  </button>
-                </div>
-              </div>
+              {/* <div className={`${styles.flexRow} ${styles.btnHolder}`}>
+               
+             </div> */}
+              <Counter
+                onIncProductQuantity={onIncProductQuantity}
+                onDecProductQuantity={onDecProductQuantity}
+                onQuantityInput={onQuantityInput}
+                selectedProduct={selectedProduct}
+                onAddToCart={onAddToCart}
+                name={name}
+              />
             </div>
           </section>
           <section className={`${styles.flexRow} ${styles.featHolder}`}>
@@ -250,4 +206,5 @@ ProductDetail.propTypes = {
   showMobileMenu: propTypes.bool,
   onCloseMobileNav: propTypes.func,
 };
+
 export default ProductDetail;

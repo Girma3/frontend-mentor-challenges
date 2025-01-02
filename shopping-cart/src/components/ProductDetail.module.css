@@ -13,6 +13,8 @@
   gap: 1rem;
 }
 .quantityHolder {
+  position: relative;
+  justify-content: start;
   gap: 0;
 }
 .featHolder {
@@ -53,12 +55,13 @@
 }
 .msgMaxValue {
   position: absolute;
+
   background-color: rgb(228, 131, 5);
   font-size: 0.6rem;
   font-weight: 600;
   padding-inline: 0.2rem;
   bottom: 86%;
-  left: 1rem;
+  left: 0;
   letter-spacing: 1px;
   border-radius: 2px;
 }

@@ -12,7 +12,6 @@ const mockProduct = {
 };
 
 describe("Counter component", () => {
-  let selectedProduct;
   let onIncProductQuantity;
   let onDecProductQuantity;
   let onQuantityInput;
